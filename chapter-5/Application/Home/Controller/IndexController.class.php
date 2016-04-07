@@ -1,6 +1,8 @@
 <?php
 namespace Home\Controller;
 
+use Home\Model\PostModel;
+use Home\Model\PostViewModel;
 use Home\Model\UserModel;
 use Think\Controller;
 use Think\Model;
@@ -45,5 +47,33 @@ class IndexController extends Controller
 			$user->save();
 			print_r($user->find(6));
 		}
+	}
+
+	public function posts()
+	{
+		$m = new PostViewModel();
+		$data = $m->select();
+		print_r($data);
+	}
+
+	public function posts2()
+	{
+		$m = new UserModel();
+		$data = $m->relation('extra')->find();
+		print_r($data);
+	}
+
+	public function posts3()
+	{
+		$m = new PostModel();
+		$data = $m->relation('author')->find();
+		print_r($data);
+	}
+
+	public function posts4()
+	{
+		$m = new UserModel();
+		$data = $m->relation('posts')->find();
+		print_r($data);
 	}
 }

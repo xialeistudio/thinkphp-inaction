@@ -8,7 +8,7 @@ use Think\Model;
  * User: xialeistudio<1065890063@qq.com>
  * Date: 2016-03-24
  */
-class UserModel extends Model
+class UserModel extends Model\RelationModel
 {
 	private $denyUsernames = array(
 		'admin',
@@ -27,7 +27,22 @@ class UserModel extends Model
 	public $_auto = array(
 		array('password', 'md5', self::MODEL_BOTH, 'function'),//新增或编辑的时候使用md5函数处理密码
 		array('created_at', 'time', self::MODEL_INSERT, 'function'),//新增的时候将创建时间设为当前时间戳
-		array('updated_at','time',self::MODEL_UPDATE,'function'),//更新的时候将更新时间设为当前时间戳
+		array('updated_at', 'time', self::MODEL_UPDATE, 'function'),//更新的时候将更新时间设为当前时间戳
+	);
+
+
+	public $_link = array(
+		'extra' => array(
+			'mapping_type' => self::HAS_ONE,
+			'class_name' => 'UserExtra',
+			'foreign_key' => 'user_id',
+			'mapping_fields' => 'email,qq',
+		),
+		'posts' => array(
+			'mapping_type' => self::HAS_MANY,
+			'class_name' => 'Post',
+			'foreign_key' => 'user_id'
+		)
 	);
 
 	/**
