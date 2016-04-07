@@ -11,7 +11,7 @@ class IndexController extends Controller
 	{
 		$user = new UserModel();
 		$data = array(
-			'username' => 'admin',
+			'username' => 'zhangsan',
 			'password' => '111111',
 			'repassword' => '111111'
 		);
@@ -20,6 +20,30 @@ class IndexController extends Controller
 			echo $user->getError();
 			exit;
 		}
-		echo 'ok';
+		else
+		{
+			$id = $user->add();
+			print_r($user->find($id));
+		}
+	}
+
+	public function update()
+	{
+		$user = new UserModel();
+		$data = array(
+			'id' => 6,
+			'username' => 'zhangsan',
+			'password' => '222222',
+		);
+		if (!$user->create($data))
+		{
+			echo $user->getError();
+			exit;
+		}
+		else
+		{
+			$user->save();
+			print_r($user->find(6));
+		}
 	}
 }

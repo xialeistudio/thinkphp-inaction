@@ -24,6 +24,12 @@ class UserModel extends Model
 		array('username', 'checkUsername', '用户名非法', 0, 'callback')
 	);
 
+	public $_auto = array(
+		array('password', 'md5', self::MODEL_BOTH, 'function'),//新增或编辑的时候使用md5函数处理密码
+		array('created_at', 'time', self::MODEL_INSERT, 'function'),//新增的时候将创建时间设为当前时间戳
+		array('updated_at','time',self::MODEL_UPDATE,'function'),//更新的时候将更新时间设为当前时间戳
+	);
+
 	/**
 	 * 检测用户名 如果在屏蔽注册的账号中，直接报错
 	 * @param string $username
@@ -40,5 +46,4 @@ class UserModel extends Model
 		}
 		return true;
 	}
-
 }
