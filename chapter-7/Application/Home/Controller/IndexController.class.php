@@ -37,4 +37,11 @@ class IndexController extends Controller
     {
         $this->display();
     }
+
+    public function view2()
+    {
+        $this->assign('name', 'test');
+        $this->assign('now', time());
+        $this->display();
+    }
 }
