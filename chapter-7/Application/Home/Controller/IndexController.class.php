@@ -44,4 +44,38 @@ class IndexController extends Controller
         $this->assign('now', time());
         $this->display();
     }
+
+    public function view3()
+    {
+        $user = array(
+            'nickname' => 'Guest',
+            'mark' => ''
+        );
+
+        $this->assign('user', $user);
+        $this->display();
+    }
+
+    public function view4()
+    {
+        $userArray = array(
+            'age' => 100
+        );
+
+        $userObj = new \stdClass();
+        $userObj->age = 100;
+        $this->assign('userArray', $userArray);
+        $this->assign('userObj', $userObj);
+        $this->display();
+    }
+
+    public function view5()
+    {
+        $this->display();
+    }
+
+    public function view6()
+    {
+        $this->display();
+    }
 }

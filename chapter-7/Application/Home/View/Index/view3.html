@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>默认值测试</title>
+</head>
+<body>
+<p>变量默认值测试：{$user.mark|default='该用户很懒'}</p>
+<p>变量默认值+函数测试：{$Think.get.name|default="名称为空"|empty|var_dump}</p>
+</body>
+</html>
