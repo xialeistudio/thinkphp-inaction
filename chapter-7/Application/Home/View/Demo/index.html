@@ -1,0 +1,156 @@
+<layout name="Demo/layout"/>
+<h2>volist</h2>
+<ul>
+	<volist name="projects" key="k" id="project">
+		<li>{$k} - {$project.name}</li>
+	</volist>
+</ul>
+<h2>foreach</h2>
+<ul>
+	<foreach name="projects" item="project" key="k">
+		<li>{$k} - {$project.name}</li>
+	</foreach>
+</ul>
+<h2>for</h2>
+<ul>
+	<for start="0" end="count($projects)" name="index">
+		<li>{$index}－{$projects[$index]['name']}</li>
+	</for>
+</ul>
+<h2>switch</h2>
+<div>
+	<switch name="age">
+		<case value="18">18岁的</case>
+		<default/>
+		不是18岁的
+	</switch>
+</div>
+<h2>eq</h2>
+<div>
+	<eq name="age" value="18">
+		18岁的
+		<else/>
+		不是18岁的
+	</eq>
+</div>
+<h2>neq</h2>
+<div>
+	<neq name="age" value="17">
+		不是17岁的
+		<else/>
+		是17岁的
+	</neq>
+</div>
+<h2>gt</h2>
+<div>
+	<gt name="age" value="17">
+		大于17岁的
+		<else/>
+		不大于17岁的
+	</gt>
+</div>
+<h2>egt</h2>
+<div>
+	<egt name="age" value="18">
+		大于等于18岁的
+		<else/>
+		小于18岁的
+	</egt>
+</div>
+<h2>lt</h2>
+<div>
+	<lt name="age" value="18">
+		小于18岁的
+		<else/>
+		不小于18岁的
+	</lt>
+</div>
+<h2>elt</h2>
+<div>
+	<elt name="age" value="18">
+		小于等于18岁的
+		<else/>
+		大于18岁的
+	</elt>
+</div>
+<h2>in</h2>
+<div>
+	<in name="age" value="17,18,19">
+		age在17,18,19中
+		<else/>
+		age不在17,18,19中
+	</in>
+</div>
+<h2>notin</h2>
+<div>
+	<notin name="age" value="20,21">
+		age不在20,21中
+		<else/>
+		age在20,21中
+	</notin>
+</div>
+<h2>between</h2>
+<div>
+	<between name="age" value="10,20">
+		age在10~20中
+		<else/>
+		age不在10~20中
+	</between>
+</div>
+<h2>notbetween</h2>
+<div>
+	<notbetween name="age" value="20,40,80">
+		age不在20~40中
+		<else/>
+		age在20~40中
+	</notbetween>
+</div>
+<h2>empty</h2>
+<div>
+	<empty name="age">
+		age是空的
+		<else/>
+		age不是空的
+	</empty>
+	<br>
+	<empty name="b">
+		b是空的
+		<else/>
+		b不是空的
+	</empty>
+</div>
+<h2>defined</h2>
+<div>
+	<defined name="THINK_PATH">
+		THINK_PATH已定义
+		<else/>
+		THINK_PATH未定义
+	</defined>
+</div><h2>defined</h2>
+<div>
+	<defined name="APP_TEST">
+		APP_TEST已定义
+		<else/>
+		APP_TEST未定义
+	</defined>
+</div>
+<h2>volist嵌套</h2>
+<div>
+	<volist name="projects" id="project">
+		<p>name:{$project.name}</p>
+		<ul>
+			<volist name="project.members" id="member">
+				<li>{$member.id} - {$member.name}</li>
+			</volist>
+		</ul>
+	</volist>
+</div>
+<h2>import导入</h2>
+<div>
+	资源目录为：__PUBLIC__ <br>
+	<import type="js" file="Js.main"/>
+</div>
+<h2>使用PHP</h2>
+<div>
+	<?php echo '本行由PHP输出';?>
+</div>
