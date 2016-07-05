@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分页</title>
+</head>
+<body>
+
+<table border="1" cellpadding="0" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>username</th>
+        <th>password</th>
+        <th>注册时间</th>
+        <th>更新时间</th>
+    </tr>
+    <volist name="list" id="vo">
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.username}</td>
+            <td>{$vo.password}</td>
+            <td>{$vo.created_at|date='Y-m-d H:i:s',###}</td>
+            <td>{$vo.updated_at|date='Y-m-d H:i:s',###}</td>
+        </tr>
+    </volist>
+</table>
+<div>
+    {$page}
+</div>
+</body>
+</html>
