@@ -21,7 +21,7 @@
         留言者：{$item.username}
         留言时间：{$item.created_at|date='Y-m-d H:i:s',###}
         <eq name="Think.session.user.userId" value="$item.user_id">
-            <a href="{:U('delete?id='.$item['user_id'])}" onclick="return confirm('确定删除此条留言？')">删除</a>
+            <a href="{:U('delete?id='.$item['message_id'])}" onclick="return confirm('确定删除此条留言？')">删除</a>
         </eq>
     </div>
 </volist>
