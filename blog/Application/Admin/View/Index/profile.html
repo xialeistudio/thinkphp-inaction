@@ -1,0 +1,35 @@
+<div class="container">
+	<div class="panel panel-default">
+		<div class="panel-heading">最近登录</div>
+		<div class="panel-body">
+			<ul>
+				<li>上次登录时间：{$Think.session.admin.loginAt|date='Y-m-d H:i:s',###}</li>
+				<li>上次登录地址：{$Think.session.admin.loginIp}</li>
+			</ul>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">修改密码</div>
+		<div class="panel-body">
+			<form action="__SELF__" method="post" class="form-horizontal">
+				<div class="form-group">
+					<label for="password" class="col-md-1">新密码</label>
+					<div class="col-md-4">
+						<input type="password" id="password" class="form-control" name="password" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="repassword" class="col-md-1">密码确认</label>
+					<div class="col-md-4">
+						<input type="password" id="repassword" class="form-control" name="repassword" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-2 col-md-offset-1">
+						<button class="btn btn-primary btn-block">修改</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

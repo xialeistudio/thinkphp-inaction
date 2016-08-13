@@ -69,4 +69,32 @@ class IndexController extends Controller
 		session_destroy();
 		$this->redirect('admin/index/login');
 	}
+
+	public function profile()
+	{
+		if (IS_POST)
+		{
+			$password = I('password');
+			$repassword = I('repassword');
+			if (!empty($password) && $password != $repassword)
+			{
+				$this->error('确认密码不一致');
+			}
+			$data = array('password' => saltEncrypt($password));
+			$model = new Model('Admin');
+			$result = $model->where(array('adminId' => session('admin.adminId')))->save($data);
+			if ($result === false)
+			{
+				$this->error('修改失败');
+			}
+			else
+			{
+				$this->success('修改成功');
+			}
+		}
+		else
+		{
+			$this->display();
+		}
+	}
 }
