@@ -12,5 +12,4 @@ return array(
 		'__CSS__' => '/thinkphp-inaction/blog/public/admin/css',
 		'__IMAGE__' => '/thinkphp-inaction/blog/public/admin/images'
 	),
-	'SHOW_PAGE_TRACE' => true,
 );

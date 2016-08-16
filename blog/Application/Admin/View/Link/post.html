@@ -1,0 +1,40 @@
+<div class="container">
+	<h1>友情链接</h1>
+	<form action="__SELF__" class="form-horizontal" method="post">
+		<div class="form-group">
+			<label for="name" class="control-label col-md-2">名称</label>
+			<div class="col-md-6">
+				<input type="text" class="form-control" id="name" name="name" required value="{$data.name}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="link" class="control-label col-md-2">链接</label>
+			<div class="col-md-6">
+				<input type="url" class="form-control" id="link" name="link" required value="{$data.link}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="sort" class="control-label col-md-2">排序</label>
+			<div class="col-md-6">
+				<input type="number" class="form-control" id="sort" name="sort" required value="{$data.sort|default=0}">
+				<div class="help-block">
+					数字越大，越排前面
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="status" class="control-label col-md-2">状态</label>
+			<div class="col-md-6">
+				<label for="status">
+					<input type="checkbox" id="status" name="status" value="1" <eq name="data.status" value="1">checked</eq>>
+					有效
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2 col-md-offset-2">
+				<button class="btn btn-primary">提交</button>
+			</div>
+		</div>
+	</form>
+</div>

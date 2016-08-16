@@ -1,0 +1,42 @@
+<div class="container">
+	<h1>文章列表</h1>
+	<p>
+		<a href="{:U('admin/article/add')}" class="btn btn-primary">发表文章</a>
+	</p>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<tr>
+				<td>ID</td>
+				<td>标题</td>
+				<td>简介</td>
+				<td>发表时间</td>
+				<td>点击数</td>
+				<td>状态</td>
+				<td>分类</td>
+				<td>操作</td>
+			</tr>
+			<volist name="list" id="item">
+				<tr>
+					<td>{$item.articleId}</td>
+					<td>{$item.title}</td>
+					<td>{$item.description|mb_substr=0,20,'UTF-8'}</td>
+					<td>{$item.createdAt|date='m-d H:i',###}</td>
+					<td>{$item.hits}</td>
+					<td>
+						<eq name="item.status" value="1">
+							<span class="label label-success">已发布</span>
+							<else/>
+							<span class="label label-warning">未发布</span>
+						</eq>
+					</td>
+					<td>{$item.name}</td>
+					<td>
+						<a href="{:U('admin/article/edit?id='.$item['articleId'])}">编辑</a>
+						<a href="{:U('admin/article/delete?id='.$item['articleId'])}" onclick="return confirm('确定删除吗?')">删除</a>
+					</td>
+				</tr>
+			</volist>
+		</table>
+	</div>
+	{$page}
+</div>

@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="__VENDOR__/umeditor/themes/default/css/umeditor.min.css">
+<div class="container">
+	<empty name="data">
+		<h1>发表文章</h1>
+		<else/>
+		<h1>编辑文章</h1>
+	</empty>
+	<form action="__SELF__" method="post" class="form-horizontal" id="form">
+		<input type="hidden" name="image" value="{$data.image}" id="image">
+		<input type="hidden" name="content" value="{$data.content}" id="content">
+		<div class="form-group">
+			<label for="title" class="control-label col-md-2">文章标题</label>
+			<div class="col-md-6">
+				<input type="text" name="title" id="title" class="form-control" value="{$data.title}" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="description" class="control-label col-md-2">文章简介</label>
+			<div class="col-md-6">
+				<textarea name="description" id="description" rows="6" class="form-control" maxlength="100" placeholder="不填则系统提取正文部分内容">{$data.description}</textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="image" class="col-md-2 control-label">封面图片</label>
+			<div class="col-md-6">
+				<include file="Common:upload"/>
+				<div class="help-block">
+					<img id="thumb" src="{$data.image}" width="100" class="img-responsive" alt="">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="categoryId" class="control-label col-md-2">分类</label>
+			<div class="col-md-4">
+				<select class="form-control" name="categoryId" id="categoryId">
+					<volist name="categories" id="vo">
+						<option value="{$vo.categoryId}">{$vo.name}</option>
+					</volist>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-8 col-md-offset-2">
+				<script type="text/plain" id="editor" class="form-control" style="height:400px"></script>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="sort" class="control-label col-md-2">排序</label>
+			<div class="col-md-6">
+				<input type="number" name="sort" id="sort" class="form-control" value="{$data.sort|default=0}" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">状态</label>
+			<div class="col-md-6">
+				<label>
+					<input type="radio" name="status" value="1"
+					<eq name="data.status" value="1">checked</eq>
+					>
+					发布
+				</label>
+				<label>
+					<input type="radio" name="status" value="0"
+					<eq name="data.status" value="0">checked</eq>
+					>
+					不发布
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2 col-md-offset-2">
+				<button class="btn btn-primary btn-block">提交</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script src="__VENDOR__/umeditor/umeditor.config.js"></script>
+<script src="__VENDOR__/umeditor/umeditor.min.js"></script>
+<script>
+	var um = UM.getEditor('editor');
+</script>
+<empty name="data.content">
+	<else/>
+	<script>
+		setTimeout(function() {
+			um.setContent('{$data.content|htmlspecialchars_decode}');
+		}, 500);
+	</script>
+</empty>
+<script>
+	$('#thumb').hide();
+	function uploadCallback(url) {
+		$('#thumb').attr('src', url).show();
+		$('#image').attr('value', url);
+	}
+	$(function() {
+		$('#form').on('submit', function(e) {
+			$("#content").attr('value', um.getContent());
+		});
+	});
+</script>
