@@ -1,0 +1,86 @@
+<ol class="breadcrumb">
+	<li><a href="{:U('/')}">首页</a></li>
+	<li><a href="{:U('/index/category',array('id'=>$article['categoryId']))}">{$article.name}</a></li>
+	<li class="active">{$article.title}</li>
+</ol>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<h2>{$article.title}</h2>
+		<p class="text-muted">
+			<i class="glyphicon glyphicon-list"></i>
+			<a href="{:U('/index/category',array('id'=>$article['categoryId']))}">{$article.name}</a>
+			<i class="glyphicon glyphicon-time"></i> {$article.createdAt|date='m-d',###}
+		</p>
+		<div class="well well-sm">{$article.description}</div>
+		<article>{$article.content|htmlspecialchars_decode}</article>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">发表评论</div>
+	<div class="panel-body">
+		<form action="" method="post" class="form-horizontal" id="comment-form">
+			<div class="form-group">
+				<label for="nickname" class="control-label col-md-1">昵称</label>
+				<div class="col-md-5">
+					<input type="text" id="nickname" name="nickname" maxlength="10" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="content" class="control-label col-md-1">内容</label>
+				<div class="col-md-5">
+					<textarea name="content" id="content" class="form-control" rows="4" maxlength="100" required placeholder="写点什么..."></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-2 col-md-offset-1">
+					<button class="btn btn-success btn-block">发表</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">评论列表</div>
+	<div class="panel-body" id="comments">
+		<empty name="comments">
+			<p>暂时没有评论</p>
+			<else/>
+			<volist name="comments" id="item">
+				<div class="media">
+					<div class="media-body">
+						<h4 class="media-heading">{$item.nickname}
+							<small>{$item.createdAt|date='m-d H:i',###}</small>
+						</h4>
+						<p>{$item.content}</p>
+					</div>
+				</div>
+			</volist>
+		</empty>
+	</div>
+</div>
+<script>
+	$(function() {
+		$('#comment-form').on('submit', function(e) {
+			e.preventDefault();
+			var nickname = $('#nickname').val().trim();
+			var content = $('#content').val().trim();
+			var $btn = $(this).find('button');
+			$btn.text('提交中').prop('disabled', true);
+			$.post('__URL__/comment?id={$Think.get.id}', {nickname: nickname, content: content}, function(data) {
+				$btn.text('发表').prop('disabled', false);
+				if (data.status !== undefined && data.status === 0) {
+					alert(data.info);
+					return;
+				}
+				commentSucceed(data);
+				$('#nickname').val('');
+				$('#content').val('');
+			}, 'json');
+		});
+		function commentSucceed(data) {
+			var $html = $('<div class="media">\n\t<div class="media-body"><h4 class="media-heading">' + data.nickname + '<small>' + data.createdAt + '</small></h4><p>' + data.content + '</p></div></div>');
+			$('#comments').prepend($html);
+		}
+	});
+</script>

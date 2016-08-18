@@ -56,3 +56,24 @@ function array2xml($data, $rootNodeName = 'data', $xml = null)
 	// pass back as string. or simple xml object if you want!
 	return $xml->asXML();
 }
+
+/**
+ * 获取分类
+ * @param int $isNav
+ * @return mixed
+ */
+function getCategory($isNav = -1)
+{
+	$map = array();
+	if ($isNav > -1)
+	{
+		$map['isNav'] = $isNav;
+	}
+	$model = new \Think\Model('Category');
+	return $model->where($map)->order('sort DESC')->select();
+}
+
+function getLinks()
+{
+	return M('Link')->where(array('status' => 1))->order('linkId DESC')->select();
+}

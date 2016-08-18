@@ -69,6 +69,7 @@ class ArticleController extends BaseController
 			{
 				$this->error('添加失败');
 			}
+			M('Category')->where(array('categoryId' => $categoryId))->setInc('total');
 			$this->success('添加成功', U('admin/article/index'));
 		}
 		else
@@ -125,6 +126,11 @@ class ArticleController extends BaseController
 			if ($model->where(array('articleId' => $id))->save($data) === false)
 			{
 				$this->error('编辑失败');
+			}
+			if ($article['categoryId'] != $categoryId)
+			{
+				M('Category')->where(array('categoryId' => $categoryId))->setInc('total');
+				M('Category')->where(array('categoryId' => $article['categoryId']))->setDec('total');
 			}
 			$this->success('编辑成功', U('admin/article/index'));
 		}
