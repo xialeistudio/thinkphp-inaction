@@ -1,0 +1,33 @@
+<div class="container">
+	<empty name="list">
+		<p>暂时没有数据</p>
+		<else/>
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<tr>
+					<th>ID</th>
+					<th>昵称</th>
+					<th>时间</th>
+					<th>内容</th>
+					<th>查看文章</th>
+					<th>操作</th>
+				</tr>
+				<volist name="list" id="item">
+					<tr>
+						<td>{$item.commentId}</td>
+						<td>{$item.nickname}</td>
+						<td>{$item.createdAt|date='m-d H:i',###}</td>
+						<td>{$item.content}</td>
+						<td>
+							<a href="{:U('/index/article',array('id'=>$item['articleId']))}" target="_blank">查看</a>
+						</td>
+						<td>
+							<a href="{:U('admin/comment/delete',array('id'=>$item['commentId']))}" onclick="return confirm('确定删除吗')">删除</a>
+						</td>
+					</tr>
+				</volist>
+			</table>
+		</div>
+	</empty>
+	{$page}
+</div>
