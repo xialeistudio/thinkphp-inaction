@@ -48,10 +48,17 @@ class IndexController extends Controller
 	public function article($id)
 	{
 		$model = new ArticleCategoryViewModel();
-		$article = $model->find(array('articleId' => $id));
+		$article = $model->where(array('articleId' => $id))->find();
 		if (empty($article))
 		{
 			$this->error('文章不存在');
+		}
+		$isHits = S('article-view-' . $id . '-' . get_client_ip());
+		if (!$isHits)
+		{
+			$model->where(array('articleId' => $id))->setInc('hits');
+			S('article-view-' . $id . '-' . get_client_ip(), 1, 600);
+			$article['hits']++;
 		}
 		//评论
 		$commentModel = new Model('Comment');

@@ -10,6 +10,8 @@
 			<i class="glyphicon glyphicon-list"></i>
 			<a href="{:U('/index/category',array('id'=>$article['categoryId']))}">{$article.name}</a>
 			<i class="glyphicon glyphicon-time"></i> {$article.createdAt|date='m-d',###}
+			<i class="glyphicon glyphicon-fire"></i>
+			{$article.hits}
 		</p>
 		<div class="well well-sm">{$article.description}</div>
 		<article>{$article.content|htmlspecialchars_decode}</article>
