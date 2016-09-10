@@ -1,0 +1,27 @@
+<header class="am-topbar">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="#">{:C('site.name')}</a>
+        </h1>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+
+            </ul>
+
+            <div class="am-topbar-right">
+                <empty name="Think.session.user">
+                    <a href="{:U('user/login')}" class="am-btn am-btn-primary white am-topbar-btn am-btn-sm">登录</a>
+                    <a href="{:U('user/register')}" class="am-btn am-btn-primary white am-topbar-btn am-btn-sm">注册</a>
+                    <else/>
+                    <a href="{:U('user/home')}" class="am-btn am-btn-primary white am-topbar-btn am-btn-sm">个人中心</a>
+                    <a href="{:U('user/logout')}" class="am-btn am-btn-default am-topbar-btn am-btn-sm">退出登录</a>
+                </empty>
+            </div>
+        </div>
+    </div>
+</header>
