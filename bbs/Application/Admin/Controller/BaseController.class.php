@@ -20,6 +20,7 @@ class BaseController extends Controller
         if (static::loginRequired() && empty($this->admin)) {
             $this->error('请登录', U('admin/auth/login'));
         }
+        C('LAYOUT_NAME', 'dashboard');
     }
 
     /**

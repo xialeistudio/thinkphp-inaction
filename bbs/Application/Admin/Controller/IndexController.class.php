@@ -17,7 +17,6 @@ class IndexController extends BaseController
     public function _initialize()
     {
         parent::_initialize();
-        C('LAYOUT_NAME', 'dashboard');
     }
 
     public function index()
