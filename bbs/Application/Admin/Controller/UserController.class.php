@@ -35,6 +35,10 @@ class UserController extends BaseController
         $this->display();
     }
 
+    /**
+     * 编辑资料
+     * @param $id
+     */
     public function update($id)
     {
         try {
@@ -65,6 +69,23 @@ class UserController extends BaseController
                 $this->assign('pageTitle', '编辑用户');
                 $this->display();
             }
+        } catch (Exception $e) {
+            $this->error($e->getMessage());
+        }
+    }
+
+    /**
+     * 删除用户
+     * @param $id
+     */
+    public function delete($id)
+    {
+        try {
+            $model = new UserModel();
+            if ($model->delete($id) === false) {
+                throw new Exception('删除失败');
+            }
+            $this->redirect('/admin/user');
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }

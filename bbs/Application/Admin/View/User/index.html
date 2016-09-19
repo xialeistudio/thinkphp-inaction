@@ -1,41 +1,45 @@
 <div class="am-container">
-    <p>当前系统共有<strong>{$count}</strong>位用户</p>
-    <div class="am-scrollable-horizontal">
-        <table class="am-table am-table-bordered am-table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>账号</th>
-                <th>昵称</th>
-                <th>头像</th>
-                <th>注册时间</th>
-                <th>注册IP</th>
-                <th>积分</th>
-                <th>发帖数</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <volist name="list" id="item">
+    <empty name="list">
+        <p>暂时没有用户</p>
+        <else/>
+        <p>当前系统共有<strong>{$count}</strong>位用户</p>
+        <div class="am-scrollable-horizontal">
+            <table class="am-table am-table-bordered am-table-striped">
+                <thead>
                 <tr>
-                    <td>{$item.userId}</td>
-                    <td>{$item.username}</td>
-                    <td>{$item.nickname}</td>
-                    <td>
-                        <img src="{$item.avatar}" width="32" height="32" alt="">
-                    </td>
-                    <td>{$item.createdAt}</td>
-                    <td>{$item.createdIp}</td>
-                    <td>{$item.score}</td>
-                    <td>{$item.postCount}</td>
-                    <td>
-                        <a href="{:U('user/update?id='.$item['userId'])}">编辑</a>
-                        <a href="{:U('user/delete?id='.$item['userId'])}" onclick="return confirm('确定删除吗?')">删除</a>
-                    </td>
+                    <th>ID</th>
+                    <th>账号</th>
+                    <th>昵称</th>
+                    <th>头像</th>
+                    <th>注册时间</th>
+                    <th>注册IP</th>
+                    <th>积分</th>
+                    <th>发帖数</th>
+                    <th>操作</th>
                 </tr>
-            </volist>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                <volist name="list" id="item">
+                    <tr>
+                        <td>{$item.userId}</td>
+                        <td>{$item.username}</td>
+                        <td>{$item.nickname}</td>
+                        <td>
+                            <img src="{$item.avatar}" width="32" height="32" alt="">
+                        </td>
+                        <td>{$item.createdAt}</td>
+                        <td>{$item.createdIp}</td>
+                        <td>{$item.score}</td>
+                        <td>{$item.postCount}</td>
+                        <td>
+                            <a href="{:U('user/update?id='.$item['userId'])}">编辑</a>
+                            <a href="{:U('user/delete?id='.$item['userId'])}" onclick="return confirm('确定删除吗?')">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    </empty>
     {$page}
 </div>
