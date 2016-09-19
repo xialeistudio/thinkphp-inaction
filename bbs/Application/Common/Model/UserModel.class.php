@@ -42,11 +42,10 @@ class UserModel extends Model
      */
     public function register(array $data)
     {
-        $model = new UserModel();
-        if (!$model->create($data)) {
-            throw new  Exception($model->getError());
+        if (!$this->create($data)) {
+            throw new  Exception($this->getError());
         }
-        if (!$model->add()) {
+        if (!$this->add()) {
             throw new Exception('注册时间');
         }
     }
@@ -60,8 +59,7 @@ class UserModel extends Model
      */
     public function login($username, $password)
     {
-        $model = new UserModel();
-        $user = $model->find(array('username' => $username));
+        $user = $this->where(array('username' => $username))->find();
         if (empty($user) || $user['password'] != saltMd5($password)) {
             throw new Exception('用户名或密码错误');
         }
