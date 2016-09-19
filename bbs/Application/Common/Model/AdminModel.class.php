@@ -34,6 +34,9 @@ class AdminModel extends Model
             throw new Exception('用户名或密码错误');
         }
         session(BaseController::SESSION_KEY, $user);
+        $data['loginAt'] = date('Y-m-d H:i:s');
+        $data['loginIp'] = get_client_ip(1, true);
+        $this->where(array('adminId' => $user['adminId']))->save($data);
         return $user;
     }
 }
