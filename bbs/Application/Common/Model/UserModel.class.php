@@ -46,7 +46,7 @@ class UserModel extends Model
             throw new  Exception($this->getError());
         }
         if (!$this->add()) {
-            throw new Exception('注册时间');
+            throw new Exception('注册失败');
         }
     }
 

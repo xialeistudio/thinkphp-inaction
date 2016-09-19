@@ -1,0 +1,44 @@
+<div class="am-container">
+    <p>
+        <a href="{:U('create')}" class="am-btn am-btn-primary am-btn-xs">添加版块</a>
+    </p>
+    <empty name="list">
+        <div>暂时没有版块</div>
+        <else/>
+        <div class="am-scrollable-horizontal">
+            <table class="am-table am-table-bordered am-table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>图标</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name="list" id="item">
+                    <tr>
+                        <td>{$item.boardId}</td>
+                        <td>{$item.name}</td>
+                        <td><img src="{$item.icon}" width="32" height="32" alt=""></td>
+                        <td>
+                            <eq name="item.enabled" value="1">
+                                <span class="am-badge am-badge-success">启用</span>
+                                <else/>
+                                <span class="am-badge am-badge-danger">禁用</span>
+                            </eq>
+                        </td>
+                        <td>
+                            <a href="{:U('board/update?id='.$item['boardId'])}">编辑</a>
+                            <a href="{:U('board/delete?id='.$item['boardId'])}"
+                               onclick="return confirm('确定删除吗?')">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    </empty>
+    {$page}
+</div>

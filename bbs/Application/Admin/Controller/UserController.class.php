@@ -63,7 +63,7 @@ class UserController extends BaseController
                 if ($result === false) {
                     throw new Exception('编辑失败');
                 }
-                $this->redirect('/admin/user');
+                $this->redirect('index');
             } else {
                 $this->assign('user', $user);
                 $this->assign('pageTitle', '编辑用户');
@@ -85,7 +85,7 @@ class UserController extends BaseController
             if ($model->delete($id) === false) {
                 throw new Exception('删除失败');
             }
-            $this->redirect('/admin/user');
+            $this->redirect('index');
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }

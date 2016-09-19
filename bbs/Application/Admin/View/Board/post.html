@@ -1,0 +1,61 @@
+<form class="am-form am-container" action="__SELF__" method="post">
+    <input type="hidden" id="icon" value="{$board.icon}" name="icon">
+    <fieldset>
+        <legend>{$pageTitle}</legend>
+        <div class="am-form-group">
+            <label for="name">版块名称</label>
+            <input type="text" name="name" id="name" maxlength="20" value="{$board.name}" required>
+        </div>
+        <div class="am-form-group">
+            <label for="file">版块图标</label>
+            <div class="am-form-file">
+                <button type="button" class="am-btn am-btn-default am-btn-sm">
+                    <i class="am-icon-cloud-upload"></i> <span id="upload-status">上传版块图标</span>
+                </button>
+                <input type="file" id="file" accept="image/*">
+            </div>
+            <img style="margin-top: 8px;" id="icon-img" width="100" height="100" alt="">
+        </div>
+        <div class="am-checkbox">
+            <label>
+                <input type="checkbox" name="enabled" value="1"
+                <eq name="board.enabled" value="1">checked</eq>
+                > 启用
+            </label>
+        </div>
+
+        <div class="am-form-group">
+            <label for="rules">版块规则</label>
+            <textarea name="rules" id="rules" rows="8" required>{$board.rules}</textarea>
+        </div>
+        <p>
+            <button type="submit" class="am-btn am-btn-primary">提交</button>
+        </p>
+    </fieldset>
+</form>
+<script src="__PUBLIC__/vendor/jquery.upload.js"></script>
+<script>
+    $(function () {
+        var $iconImg = $('#icon-img');
+        var $icon = $('#icon');
+        if ($icon.val()) {
+            $iconImg.attr('src', $icon.val());
+        }
+        $('#file').upload({
+            url: '{:U("index/upload")}',
+            onProgress: function (current, total) {
+                $('#upload-status').text(parseInt(current * 100 / total) + '%');
+            },
+            onSuccess: function (data) {
+                $('#upload-status').text('上传完成');
+                var json = JSON.parse(data);
+                $icon.val(json.url);
+                $iconImg.attr('src', json.url);
+            },
+            onError: function (e) {
+                alert('上传失败');
+                console.error(e);
+            }
+        });
+    });
+</script>
