@@ -19,6 +19,7 @@ use Think\Model;
  */
 class BoardModel extends Model
 {
+
     public $_validate = array(
         array('name', 'require', '版块名称不能为空'),
         array('icon', 'require', '版块图标不能为空'),

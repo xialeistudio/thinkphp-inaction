@@ -1,9 +1,22 @@
-<div class="am-container">
-    <!--版块-->
-    <div class="am-panel am-panel-default">
-        <div class="am-panel-hd">版块列表</div>
-        <div class="am-panel-bd">
-            123
-        </div>
+<div class="am-container site-index">
+    <!--最新帖子-->
+    <h2>动态</h2>
+    <div class="thread-list">
+        123
+    </div>
+    <!--版块列表-->
+    <h2>板块列表</h2>
+    <div class="board-list">
+        <volist name="boards" id="board">
+            <div class="board">
+                <div class="icon">
+                    <a href="{:U('/board/'.$board['boardId'])}">
+                        <img class="am-img-responsive" src="{$board.icon}"
+                             alt="{$board.name}">
+                    </a>
+                </div>
+                <a href="{:U('/board/'.$board['boardId'])}" class="name">{$board.name}</a>
+            </div>
+        </volist>
     </div>
 </div>
