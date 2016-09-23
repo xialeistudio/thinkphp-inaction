@@ -75,4 +75,24 @@ class BoardModel extends Model
             }
         }
     }
+
+    /**
+     * 查看版块
+     * @param $id
+     * @param null $enabled
+     * @return mixed
+     * @throws Exception
+     */
+    public function view($id, $enabled = null)
+    {
+        $condition = array('boardId' => $id);
+        if (!is_null($enabled)) {
+            $condition['enabled'] = $enabled;
+        }
+        $data = $this->where($condition)->find();
+        if (empty($data)) {
+            throw new Exception('版块不存在');
+        }
+        return $data;
+    }
 }

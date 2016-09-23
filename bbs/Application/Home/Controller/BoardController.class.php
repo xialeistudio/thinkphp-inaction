@@ -9,7 +9,19 @@
 namespace Home\Controller;
 
 
-class BoardController
-{
+use Common\Model\BoardModel;
+use Think\Exception;
 
+class BoardController extends CommonController
+{
+    public function index($id)
+    {
+        try {
+            $model = new BoardModel();
+            $board = $model->view($id, 1);
+            $this->assign('board', $board);
+        } catch (Exception $e) {
+            $this->error($e->getMessage());
+        }
+    }
 }
