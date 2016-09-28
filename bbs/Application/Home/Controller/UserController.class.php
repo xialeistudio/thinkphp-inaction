@@ -40,7 +40,8 @@ class UserController extends Controller
             if (IS_POST) {
                 $user = new UserModel();
                 $user->login(I('username'), I('password'));
-                $this->success('登录成功', U('/'));
+                $callback = session('callback');
+                $this->success('登录成功', empty($callback) ? U('/') : $callback);
             } else {
                 $this->display();
             }

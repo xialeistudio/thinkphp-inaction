@@ -66,4 +66,15 @@ class UserModel extends Model
         session('user', $user);
         return $user;
     }
+
+    /**
+     * 最新的
+     * @param int $size
+     * @return mixed
+     */
+    public function latest($size = 6)
+    {
+        $list = $this->field('userId,nickname,avatar,createdAt')->order('userId DESC')->limit($size)->select();
+        return $list;
+    }
 }

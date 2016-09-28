@@ -1,0 +1,29 @@
+<div class="am-container">
+    <ol class="am-breadcrumb am-breadcrumb-slash">
+        <li><a href="{:U('/')}">首页</a></li>
+        <li><a href="{:U('board/'.$board['boardId'])}">{$board.name}</a></li>
+        <li class="am-active">发帖</li>
+    </ol>
+    <form class="am-form" action="{:U('board/doPost')}" method="post">
+        <fieldset>
+            <input type="hidden" name="boardId" value="{$board.boardId}">
+            <legend>发表帖子</legend>
+            <div class="am-form-group">
+                <label for="board">版块</label>
+                <input type="text" id="board" readonly value="{$board.name}">
+            </div>
+            <div class="am-form-group">
+                <label for="title">标题</label>
+                <input type="text" name="title" id="title" maxlength="20" required>
+            </div>
+            <div class="am-form-group">
+                <label for="content">内容</label>
+                <textarea id="content" name="content" rows="8" placeholder="请文明发帖" required></textarea>
+            </div>
+            <p>
+                <button type="submit" class="am-btn am-btn-primary">发表</button>
+                <button type="reset" class="am-btn am-btn-default">重置</button>
+            </p>
+        </fieldset>
+    </form>
+</div>

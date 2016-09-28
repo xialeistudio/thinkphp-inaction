@@ -1,0 +1,48 @@
+<div class="am-container site-board">
+    <ol class="am-breadcrumb am-breadcrumb-slash">
+        <li><a href="{:U('/')}">首页</a></li>
+        <li class="am-active">{$board.name}</li>
+    </ol>
+    <div class="am-panel am-panel-default">
+        <div class="am-panel-bd">
+            <div>帖子总数：{$postCount}</div>
+            <div>
+                版主：
+                <volist name="admins" id="admin">
+                    <a href="{:U('user/view?id='.$admin['userId'])}">{$admin.nickname}</a>
+                </volist>
+            </div>
+        </div>
+    </div>
+    <p><a href="{:U('thread/post?bid='.$board['boardId'])}" class="am-btn am-btn-primary">发帖</a></p>
+    <div class="am-panel am-panel-default">
+        <div class="am-panel-hd">
+            <h3 class="am-panel-title">板块规则</h3>
+        </div>
+        <div class="am-panel-bd">{$board.rules}</div>
+    </div>
+    <div class="am-panel am-panel-default">
+        <div class="am-panel-hd">
+            <div class="am-panel-title">帖子列表</div>
+        </div>
+
+        <div class="am-panel-bd no-padding threads-box">
+            <div class="thread-list">
+                <volist name="postList" id="post">
+                    <div class="item">
+                        <a href="{:U('post/view?id='.$post['postId'])}" class="title">{$post.title}</a>
+                        <div class="status">
+                            <a href="{:U('user/view?id='.$post['userId'])}" class="user">{$post.userNickname}</a>
+                            <div class="time">{$post.createdAt|strtotime|date='m-d H:i',###}</div>
+                        </div>
+                        <div class="count">
+                            <div class="view">浏览：<span>{$post.viewCount}</span></div>
+                            <div class="reply">回复：<span>{$post.replyCount}</span></div>
+                        </div>
+                    </div>
+                </volist>
+            </div>
+            {$page}
+        </div>
+    </div>
+</div>

@@ -2,7 +2,19 @@
     <!--最新帖子-->
     <h2>动态</h2>
     <div class="thread-list">
-        123
+        <volist name="posts" id="post">
+            <div class="item">
+                <a href="{:U('post/view?id='.$post['postId'])}" class="title">【{$post.boardName}】{$post.title}</a>
+                <div class="status">
+                    <a href="{:U('user/view?id='.$post['userId'])}" class="user">{$post.userNickname}</a>
+                    <div class="time">{$post.createdAt|strtotime|date='m-d H:i',###}</div>
+                </div>
+                <div class="count">
+                    <div class="view">浏览：<span>{$post.viewCount}</span></div>
+                    <div class="reply">回复：<span>{$post.replyCount}</span></div>
+                </div>
+            </div>
+        </volist>
     </div>
     <!--版块列表-->
     <h2>板块列表</h2>
@@ -16,6 +28,18 @@
                     </a>
                 </div>
                 <a href="{:U('/board/'.$board['boardId'])}" class="name">{$board.name}</a>
+            </div>
+        </volist>
+    </div>
+    <h2>最新会员</h2>
+    <div class="user-list">
+        <volist name="users" id="user">
+            <div class="user">
+                <div class="avatar"><img src="{$user.avatar|avatar}" alt=""></div>
+                <div class="info">
+                    <div class="nickname">{$user.nickname}</div>
+                    <div class="time">{$user.createdAt|strtotime|date='m-d H:i',###}</div>
+                </div>
             </div>
         </volist>
     </div>

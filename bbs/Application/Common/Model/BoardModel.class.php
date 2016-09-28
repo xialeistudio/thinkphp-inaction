@@ -95,4 +95,24 @@ class BoardModel extends Model
         }
         return $data;
     }
+
+    /**
+     * 版主列表
+     * @param $boardId
+     * @return mixed
+     */
+    public function getAdmins($boardId)
+    {
+        $m = new Model('BoardAdmin');
+        $userIds = $m->where(array('boardId' => $boardId))->field('userId')->select();
+        if (empty($userIds)) {
+            return [];
+        }
+        $userIds = array_map(function ($item) {
+            return $item['userId'];
+        }, $userIds);
+        $user = new UserModel();
+        $users = $user->where(array('userId' => array('in', $userIds)))->field('userId,nickname,avatar,score,postCount')->select();
+        return $users;
+    }
 }

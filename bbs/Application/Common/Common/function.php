@@ -17,5 +17,10 @@ function getNowAsString($format = 'Y-m-d H:i:s')
  */
 function saltMd5($str, $salt = 'bbs')
 {
-    return md5($str.$salt);
+    return md5($str . $salt);
+}
+
+function avatar($url)
+{
+    return empty($url) ? C('DEFAULT.avatar') : $url;
 }

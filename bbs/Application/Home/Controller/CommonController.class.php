@@ -14,9 +14,20 @@ use Think\Verify;
 
 class CommonController extends Controller
 {
+    protected $user;
+
     public function capture()
     {
         $verify = new Verify();
         $verify->entry();
+    }
+
+    public function checkLogin()
+    {
+        $this->user = session('user');
+        if (empty($this->user)) {
+            session('callback', __SELF__);
+            $this->error('请登录', U('user/login'));
+        }
     }
 }
