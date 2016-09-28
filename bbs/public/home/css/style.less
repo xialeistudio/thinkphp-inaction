@@ -7,18 +7,22 @@ body {
   background: url("../images/bg_site.jpg") repeat;
 }
 
+.flex-center-box {
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
+
 .thread-list {
   background: white;
   border-radius: 4px;
   .item {
     padding: 0 8px;
     border-bottom: 1px solid #e1e1e1;
-    display: flex;
-    display: -webkit-flex;
-    align-items: center;
-    -webkit-align-items: center;
-    justify-content: space-between;
-    -webkit-justify-content: space-between;
+    .flex-center-box;
     &:last-of-type {
       border-bottom: 0;
     }
@@ -82,12 +86,9 @@ body {
       border-radius: 4px;
       box-shadow: 2px 2px 8px rgba(0, 0, 0, .3);
       float: left;
-      display: flex;
-      display: -webkit-flex;
+      .flex-center-box;
       align-items: flex-start;
-      justify-content: space-between;
       -webkit-align-items: flex-start;
-      -webkit-justify-content: space-between;
       background: white;
       .avatar {
         width: 48px;
@@ -130,4 +131,11 @@ body {
       font-size: 12px;
     }
   }
+}
+
+.am-breadcrumb {
+  background: white;
+}
+
+.site-thread {
 }

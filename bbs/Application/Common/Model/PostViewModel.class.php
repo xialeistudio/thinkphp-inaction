@@ -10,10 +10,12 @@ namespace Common\Model;
 
 
 use Common\Lib\Page;
+use Think\Exception;
 use Think\Model\ViewModel;
 
 class PostViewModel extends ViewModel
 {
+    public $pk = 'postId';
     public $viewFields = array(
         'Post' => array('postId', 'title', 'viewCount', 'replyCount', 'createdAt', 'updatedAt', 'locked', 'content', 'boardId', 'userId'),
         'User' => array('nickname' => 'userNickname', 'avatar' => 'userAvatar', 'createdAt' => 'userCreatedAt', 'createdIp' => 'userCreatedIp', 'score' => 'userScore', 'postCount' => 'userPostCount', '_on' => 'Post.userId=User.userId'),
@@ -57,17 +59,26 @@ class PostViewModel extends ViewModel
     /**
      * 查看帖子
      * @param $id
-     * @param int $userId
      * @param bool $addViews
      * @return mixed
+     * @throws Exception
      */
-    public function view($id, $userId = 0, $addViews = true)
+    public function view($id, $addViews = true)
     {
 
         if ($addViews) {
-            $this->addViews($id, empty($userId) ? get_client_ip(1) : $userId);
+            $user = session('user');
+            if (empty($user)) {
+                $key = get_client_ip(1);
+            } else {
+                $key = $user['userId'];
+            }
+            $this->addViews($id, $key);
         }
-        $data = $this->find(array('postId' => $id));
+        $data = $this->find($id);
+        if (empty($data)) {
+            throw new Exception('帖子不存在');
+        }
         return $data;
     }
 

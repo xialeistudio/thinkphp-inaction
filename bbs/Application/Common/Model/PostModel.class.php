@@ -13,8 +13,9 @@ use Think\Model;
 
 class PostModel extends Model
 {
+    public $pk = 'postId';
     public $_validate = array(
-        array('title', 'require', '帖子标题'),
+        array('title', 'require', '帖子标题不能为空'),
         array('content', 'require', '帖子内容不能为空'),
         array('boardId', 'require', '版块不能为空'),
         array('userId', 'require', '用户ID不能为空')

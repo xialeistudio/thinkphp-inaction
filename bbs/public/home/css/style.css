@@ -5,6 +5,14 @@ body {
   font-size: 14px;
   background: url("../images/bg_site.jpg") repeat;
 }
+.flex-center-box {
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+}
 .thread-list {
   background: white;
   border-radius: 4px;
@@ -74,10 +82,12 @@ body {
   float: left;
   display: flex;
   display: -webkit-flex;
-  align-items: flex-start;
+  align-items: center;
+  -webkit-align-items: center;
   justify-content: space-between;
-  -webkit-align-items: flex-start;
   -webkit-justify-content: space-between;
+  align-items: flex-start;
+  -webkit-align-items: flex-start;
   background: white;
 }
 .site-index .user-list .user .avatar {
@@ -109,4 +119,7 @@ body {
 .site-board .threads-box .am-pagination {
   margin: 12px 4px 0 4px;
   font-size: 12px;
+}
+.am-breadcrumb {
+  background: white;
 }

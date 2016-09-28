@@ -1,0 +1,23 @@
+<div class="am-container site-reply">
+    <ol class="am-breadcrumb am-breadcrumb-slash">
+        <li><a href="{:U('/')}">首页</a></li>
+        <li><a href="{:U('board/'.$thread['boardId'])}">{$thread.boardName}</a></li>
+        <li><a href="{:U('thread/view'.$thread['postId'])}">{$thread.title}</a></li>
+        <li class="am-active">回帖</li>
+    </ol>
+
+    <form class="am-form" action="{:U('thread/doReply')}" method="post">
+        <fieldset>
+            <input type="hidden" name="postId" value="{$thread.postId}">
+            <legend>回复帖子【<a href="{:U('thread/view?id='.$thread['postId'])}">{$thread.boardName}</a>】</legend>
+            <div class="am-form-group">
+                <label for="content">内容</label>
+                <textarea id="content" name="content" rows="8" placeholder="请文明发言" required></textarea>
+            </div>
+            <p>
+                <button type="submit" class="am-btn am-btn-primary">回复</button>
+                <button type="reset" class="am-btn am-btn-default">重置</button>
+            </p>
+        </fieldset>
+    </form>
+</div>

@@ -24,10 +24,12 @@ class CommonController extends Controller
 
     public function checkLogin()
     {
-        $this->user = session('user');
-        if (empty($this->user)) {
-            session('callback', __SELF__);
-            $this->error('请登录', U('user/login'));
+        if(empty($this->user)){
+            $this->user = session('user');
+            if (empty($this->user)) {
+                session('callback', __SELF__);
+                $this->error('请登录', U('user/login'));
+            }
         }
     }
 }
