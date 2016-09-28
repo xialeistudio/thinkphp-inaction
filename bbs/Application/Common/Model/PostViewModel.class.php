@@ -53,4 +53,36 @@ class PostViewModel extends ViewModel
     {
         return $this->order('postId DESC')->limit($count)->select();
     }
+
+    /**
+     * 查看帖子
+     * @param $id
+     * @param int $userId
+     * @param bool $addViews
+     * @return mixed
+     */
+    public function view($id, $userId = 0, $addViews = true)
+    {
+
+        if ($addViews) {
+            $this->addViews($id, empty($userId) ? get_client_ip(1) : $userId);
+        }
+        $data = $this->find(array('postId' => $id));
+        return $data;
+    }
+
+    /**
+     * 添加已读数
+     * @param $id
+     * @param $param
+     */
+    private function addViews($id, $param)
+    {
+        $cacheKey = $id . $param;
+        $cache = S($cacheKey);
+        if (!$cache) {
+            $this->where(array('postId' => $id))->setInc('viewCount');
+            S($cacheKey, 1, 3600);
+        }
+    }
 }

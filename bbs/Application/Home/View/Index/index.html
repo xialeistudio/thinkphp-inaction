@@ -4,7 +4,7 @@
     <div class="thread-list">
         <volist name="posts" id="post">
             <div class="item">
-                <a href="{:U('post/view?id='.$post['postId'])}" class="title">【{$post.boardName}】{$post.title}</a>
+                <a href="{:U('thread/view?id='.$post['postId'])}" class="title">【{$post.boardName}】{$post.title}</a>
                 <div class="status">
                     <a href="{:U('user/view?id='.$post['userId'])}" class="user">{$post.userNickname}</a>
                     <div class="time">{$post.createdAt|strtotime|date='m-d H:i',###}</div>
