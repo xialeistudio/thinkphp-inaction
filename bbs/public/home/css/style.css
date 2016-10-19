@@ -123,3 +123,66 @@ body {
 .am-breadcrumb {
   background: white;
 }
+.site-thread .thread {
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  border-bottom: 4px solid #EEEEEE;
+  align-items: flex-start;
+  -webkit-align-items: flex-start;
+  background: white;
+}
+.site-thread .thread .info {
+  padding: 12px;
+}
+.site-thread .thread .info .count {
+  font-size: 12px;
+}
+.site-thread .thread .info .count .number {
+  color: orangered;
+}
+.site-thread .thread .info .avatar {
+  margin: 8px 0;
+}
+.site-thread .thread .info .total {
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  font-size: 12px;
+}
+.site-thread .thread .info .total .item {
+  text-align: center;
+}
+.site-thread .thread .info .total .item .value {
+  color: orangered;
+}
+.site-thread .thread .content-box {
+  padding: 12px;
+  flex: 1;
+}
+.site-thread .thread .content-box .title {
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f1f1f1;
+}
+.site-thread .thread .content-box .post-at {
+  padding: 8px 0;
+  font-size: 12px;
+  border-bottom: 1px dashed #f1f1f1;
+}
+.site-thread .thread .content-box .body .update-at {
+  text-align: center;
+  font-size: 12px;
+  color: #999999;
+  margin: 8px 0;
+}
+.site-thread .thread .content-box .body .content {
+  padding: 8px 0;
+}

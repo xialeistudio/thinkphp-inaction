@@ -9,7 +9,7 @@
     <form class="am-form" action="{:U('thread/doReply')}" method="post">
         <fieldset>
             <input type="hidden" name="postId" value="{$thread.postId}">
-            <legend>回复帖子【<a href="{:U('thread/view?id='.$thread['postId'])}">{$thread.boardName}</a>】</legend>
+            <legend>回复帖子【<a href="{:U('thread/view?id='.$thread['postId'])}">{$thread.title}</a>】</legend>
             <div class="am-form-group">
                 <label for="content">内容</label>
                 <textarea id="content" name="content" rows="8" placeholder="请文明发言" required></textarea>

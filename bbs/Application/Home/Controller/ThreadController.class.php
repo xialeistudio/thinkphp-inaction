@@ -48,7 +48,7 @@ class ThreadController extends CommonController
             if (!$model->add()) {
                 throw new Exception('发帖失败');
             }
-            $this->redirect('board/view?id=' . $model->getLastInsID());
+            $this->redirect('view?id=' . $model->getLastInsID());
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }

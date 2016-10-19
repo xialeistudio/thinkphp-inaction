@@ -8,4 +8,56 @@
         <a href="{:U('thread/post?bid='.$thread['boardId'])}" class="am-btn am-btn-primary">发帖</a>
         <a href="{:U('thread/reply?id='.$thread['postId'])}" class="am-btn am-btn-primary">回帖</a>
     </p>
+    <div class="thread">
+        <div class="info">
+            <div class="count">查看：<span class="number">{$thread.viewCount}</span> <span class="deliver">|</span>
+                回复：<span class="number">{$thread.replyCount}</span></div>
+            <div class="nickname">{$thread.userNickname}</div>
+            <img src="{$thread.userAvatar}" width="64" height="64" class="avatar" alt="">
+            <div class="total">
+                <div class="item">
+                    <span class="name">积分</span>
+                    <div class="value">{$thread.userScore}</div>
+                </div>
+                <div class="item">
+                    <div class="name">帖子</div>
+                    <div class="value">{$thread.userPostCount}</div>
+                </div>
+            </div>
+        </div>
+        <div class="content-box">
+            <div class="title">{$thread.title}</div>
+            <div class="post-at">发表于{$thread.createdAt}</div>
+            <div class="body">
+                <eq name="thread.createdAt" value="$thread.updatedAt">
+                    <div class="update-at">本帖最后与{$thread.updatedAt}编辑</div>
+                </eq>
+                <div class="content">{$thread.content|nl2br}</div>
+            </div>
+        </div>
+    </div>
+    <volist name="replies" id="thread">
+        <div class="thread">
+            <div class="info">
+                <div class="nickname">{$thread.nickname}</div>
+                <img src="{$thread.avatar}" width="64" height="64" class="avatar" alt="">
+                <div class="total">
+                    <div class="item">
+                        <span class="name">积分</span>
+                        <div class="value">{$thread.score}</div>
+                    </div>
+                    <div class="item">
+                        <div class="name">帖子</div>
+                        <div class="value">{$thread.postCount}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-box">
+                <div class="post-at">发表于{$thread.replyAt}</div>
+                <div class="body">
+                    <div class="content">{$thread.content|nl2br}</div>
+                </div>
+            </div>
+        </div>
+    </volist>
 </div>

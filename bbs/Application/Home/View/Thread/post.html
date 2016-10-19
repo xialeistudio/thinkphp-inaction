@@ -4,7 +4,7 @@
         <li><a href="{:U('board/'.$board['boardId'])}">{$board.name}</a></li>
         <li class="am-active">发帖</li>
     </ol>
-    <form class="am-form" action="{:U('board/doPost')}" method="post">
+    <form class="am-form" action="{:U('doPost')}" method="post">
         <fieldset>
             <input type="hidden" name="boardId" value="{$board.boardId}">
             <legend>发表帖子</legend>
