@@ -11,7 +11,7 @@ use Common\Model\UserModel;
 use Think\Controller;
 use Think\Exception;
 
-class UserController extends Controller
+class UserController extends CommonController
 {
     /**
      * 注册
@@ -58,5 +58,37 @@ class UserController extends Controller
         session('user', null);
         session_destroy();
         $this->redirect('/');
+    }
+
+    /**
+     * 用户主页
+     */
+    public function home()
+    {
+        $this->checkLogin();
+        $model = new UserModel();
+        if (IS_POST) {
+            $avatar = I('avatar');
+            $nickname = I('nickname');
+            $password = I('password');
+            if (!$model->create()) {
+                $this->error($model->getError());
+            }
+            $data = [
+                'avatar' => $avatar,
+                'nickname' => $nickname
+            ];
+            if (!empty($password)) {
+                $data['password'] = $password;
+            }
+            if ($model->where(array('userId' => $this->user['userId']))->save() === false) {
+                $this->error('编辑失败');
+            }
+            $this->success('编辑成功');
+        } else {
+            $user = $model->find($this->user['userId']);
+            $this->assign('user', $user);
+            $this->display();
+        }
     }
 }

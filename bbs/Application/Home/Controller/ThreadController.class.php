@@ -63,9 +63,10 @@ class ThreadController extends CommonController
         $postViewModel = new PostViewModel();
         $data = $postViewModel->view($id);
         $this->assign('thread', $data);
-        list($replies, $replyCount) = (new ReplyViewModel())->getList($id);
+        list($replies, $page, $replyCount) = (new ReplyViewModel())->getList($id);
         $this->assign('replies', $replies);
         $this->assign('replyCount', $replyCount);
+        $this->assign('page', $page);
         $this->display();
     }
 

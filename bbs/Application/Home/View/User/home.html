@@ -1,0 +1,73 @@
+<div class="am-container">
+    <ol class="am-breadcrumb am-breadcrumb-slash">
+        <li><a href="{:U('/')}">首页</a></li>
+        <li class="am-active">个人中心</li>
+    </ol>
+    <div class="am-g">
+        <div class="am-u-sm-2">
+            <ul class="am-nav" style="background: white">
+                <li><a href="#">个人资料</a></li>
+                <li><a href="#">我的主题</a></li>
+                <li><a href="#">我的回复</a></li>
+            </ul>
+        </div>
+        <div class="am-u-sm-10">
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-hd">个人资料</div>
+                <div class="am-panel-bd">
+                    <form action="__SELF__" method="post" class="am-form">
+                        <input type="hidden" id="avatar" value="{$user.avatar}" name="avatar">
+                        <input type="hidden" id="userId" value="{$user.userId}" name="userId">
+                        <div class="am-form-group">
+                            <label for="nickname">昵称</label>
+                            <input type="text" name="nickname" value="{$user.nickname}" placeholder="昵称" id="nickname">
+                        </div>
+                        <div class="am-form-group">
+                            <label for="file">头像</label>
+                            <div class="am-form-file">
+                                <button type="button" class="am-btn am-btn-default am-btn-sm">
+                                    <i class="am-icon-cloud-upload"></i> <span id="upload-status">上传头像</span>
+                                </button>
+                                <input type="file" id="file" accept="image/*">
+                            </div>
+                            <img style="margin-top: 8px;" id="avatar-img" width="64" height="64" alt="">
+                        </div>
+                        <div class="am-form-group">
+                            <label for="password">密码</label>
+                            <input type="password" name="password" placeholder="留空则不修改" id="password">
+                        </div>
+                        <div class="am-form-group">
+                            <button class="am-btn am-btn-primary">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/vendor/jquery.upload.js"></script>
+<script>
+    $(function () {
+        var $iconImg = $('#avatar-img');
+        var $icon = $('#avatar');
+        if ($icon.val()) {
+            $iconImg.attr('src', $icon.val());
+        }
+        $('#file').upload({
+            url: '{:U("index/upload")}',
+            onProgress: function (current, total) {
+                $('#upload-status').text(parseInt(current * 100 / total) + '%');
+            },
+            onSuccess: function (data) {
+                $('#upload-status').text('上传完成');
+                var json = JSON.parse(data);
+                $icon.val(json.url);
+                $iconImg.attr('src', json.url);
+            },
+            onError: function (e) {
+                alert('上传失败');
+                console.error(e);
+            }
+        });
+    });
+</script>

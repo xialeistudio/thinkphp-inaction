@@ -128,7 +128,7 @@ CREATE TABLE `bbs_user` (
   `username` char(20) NOT NULL COMMENT '用户名',
   `password` char(32) NOT NULL COMMENT '密码',
   `nickname` varchar(10) NOT NULL COMMENT '昵称',
-  `avatar` varchar(40) NOT NULL COMMENT '头像',
+  `avatar` varchar(200) NOT NULL COMMENT '头像',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '注册时间',
   `createdIp` int(11) NOT NULL COMMENT '注册IP',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '积分',
