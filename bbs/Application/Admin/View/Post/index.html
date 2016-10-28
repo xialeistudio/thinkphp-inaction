@@ -1,17 +1,35 @@
 <div class="site-threads am-container">
-    <table class="am-table am-table-bordered">
+    <notempty name="board">
+        <p>当前显示【{$board.name}】的梯子 <a href="{:U('post/index')}">显示全部</a></p>
+    </notempty>
+    <table class="am-table am-table-bordered am-table-centered">
         <tr>
             <th>标题</th>
             <th>查看/回复</th>
             <th>发表时间</th>
             <th>编辑时间</th>
             <th>所属版块</th>
-            <th>发帖人头像</th>
             <th>发帖人</th>
             <th>操作</th>
         </tr>
-        <volist name="pageList" id="post">
+        <volist name="postList" id="item">
             <tr>
+                <td>
+                    <a href="{:U('/thread/view?id='.$item['postId'])}" target="_blank">{$item.title}</a>
+                </td>
+                <td>{$item.viewCount}/{$item.replyCount}</td>
+                <td>{$item.createdAt}</td>
+                <td>{$item.updatedAt}</td>
+                <td><a href="{:U('post/index?bid='.$item['boardId'])}">{$item.boardName}</a></td>
+                <td>
+                    <a href="{$item.userAvatar}" target="_blank">
+                        <img src="{$item.userAvatar}" width="24" height="24" alt="">
+                    </a>
+                </td>
+                <td>
+                    <a href="{:U('post/edit?id='.$item['postId'])}">编辑</a>
+                    <a href="{:U('post/delete?id='.$item['postId'])}" onclick="return confirm('确定删除吗？')">删除</a>
+                </td>
             </tr>
         </volist>
     </table>

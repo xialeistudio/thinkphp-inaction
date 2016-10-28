@@ -30,7 +30,7 @@
             <div class="post-at">发表于{$thread.createdAt}</div>
             <div class="body">
                 <eq name="thread.createdAt" value="$thread.updatedAt">
-                    <div class="update-at">本帖最后与{$thread.updatedAt}编辑</div>
+                    <div class="update-at">本帖最后于{$thread.updatedAt}编辑</div>
                 </eq>
                 <div class="content">{$thread.content|nl2br}</div>
             </div>

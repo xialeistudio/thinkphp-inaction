@@ -1,0 +1,20 @@
+<div class="am-container">
+    <form class="am-form" action="{:U('doPost')}" method="post">
+        <fieldset>
+            <input type="hidden" name="id" value="{$post.postId}">
+            <legend>编辑帖子</legend>
+            <div class="am-form-group">
+                <label for="title">标题</label>
+                <input type="text" name="title" id="title" value="{$post.title}" maxlength="20" required>
+            </div>
+            <div class="am-form-group">
+                <label for="content">内容</label>
+                <textarea id="content" name="content" rows="8" placeholder="请文明发帖" required>{$post.content}</textarea>
+            </div>
+            <p>
+                <button type="submit" class="am-btn am-btn-primary">发表</button>
+                <button type="reset" class="am-btn am-btn-default">重置</button>
+            </p>
+        </fieldset>
+    </form>
+</div>

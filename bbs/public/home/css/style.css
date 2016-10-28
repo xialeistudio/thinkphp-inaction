@@ -4,6 +4,7 @@
 body {
   font-size: 14px;
   background: url("../images/bg_site.jpg") repeat;
+  padding-bottom: 97px;
 }
 .flex-center-box {
   display: flex;
@@ -39,6 +40,9 @@ body {
 .thread-list .item .status .time {
   color: #999999;
 }
+.thread-list .item .count {
+  width: 120px;
+}
 .thread-list .item .count div {
   color: #888;
 }
@@ -51,14 +55,14 @@ body {
 .site-index .board-list .board {
   margin-bottom: 4px;
   display: inline-block;
-  width: 33%;
+  width: 20%;
   background: white;
   padding: 12px;
   border-radius: 4px;
 }
 .site-index .board-list .board .icon {
-  width: 96px;
-  height: 96px;
+  width: 48px;
+  height: 48px;
   display: inline-block;
   vertical-align: top;
 }
