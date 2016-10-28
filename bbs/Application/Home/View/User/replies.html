@@ -1,0 +1,50 @@
+<div class="am-container">
+    <ol class="am-breadcrumb am-breadcrumb-slash">
+        <li><a href="{:U('/')}">首页</a></li>
+        <li class="am-active">个人中心</li>
+    </ol>
+    <div class="am-g">
+        <div class="am-u-sm-2">
+            <ul class="am-nav" style="background: white">
+                <li><a href="{:U('home')}">个人资料</a></li>
+                <li><a href="{:U('posts')}">我的主题</a></li>
+                <li><a href="{:U('replies')}">我的回复</a></li>
+            </ul>
+        </div>
+        <div class="am-u-sm-10">
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-hd">我的回复</div>
+                <div class="am-panel-bd">
+                    <empty name="list">
+                        <p>暂时没有回复</p>
+                        <else/>
+                        <p>共【{$count}】回复</p>
+                        <div class="am-scrollable-horizontal">
+                            <table class="am-table am-table-bordered am-table-striped am-table-centered">
+                                <tr>
+                                    <td>帖子</td>
+                                    <td>发表时间</td>
+                                    <td>内容</td>
+                                    <td>操作</td>
+                                </tr>
+                                <volist name="list" id="item">
+                                    <tr>
+                                        <td>
+                                            <a href="{:U('/thread/view?id='.$item['postId'])}" target="_blank">{$item.title}</a>
+                                        </td>
+                                        <td>{$item.replyAt}</td>
+                                        <td>{$item.content}</td>
+                                        <td>
+                                            <a href="{:U('replyDelete?id='.$item['replyId'])}" onclick="return confirm('确定删除吗？')">删除</a>
+                                        </td>
+                                    </tr>
+                                </volist>
+                            </table>
+                        </div>
+                        {$page}
+                    </empty>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

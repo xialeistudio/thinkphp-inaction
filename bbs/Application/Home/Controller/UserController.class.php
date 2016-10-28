@@ -9,6 +9,8 @@ namespace Home\Controller;
 
 use Common\Model\PostModel;
 use Common\Model\PostViewModel;
+use Common\Model\ReplyModel;
+use Common\Model\ReplyViewModel;
 use Common\Model\UserModel;
 use Think\Controller;
 use Think\Exception;
@@ -167,6 +169,45 @@ class UserController extends CommonController
             $this->error('你无权删除');
         }
 
+        $result = $model->delete($id);
+        if ($result === false) {
+            $this->error('删除失败');
+        } else {
+            $this->success('删除成功');
+        }
+    }
+
+    /**
+     * 用户回复列表
+     */
+    public function replies()
+    {
+        $this->checkLogin();
+        $model = new ReplyViewModel();
+        list($list, $page, $count) = $model->getList(0,$this->user['userId']);
+        $this->assign('list', $list);
+        $this->assign('page', $page);
+        $this->assign('count', $count);
+        $this->display();
+    }
+
+    /**
+     * 删除回复
+     */
+    public function replyDelete()
+    {
+        $this->checkLogin();
+        $id = I('id');
+        $model = new ReplyModel();
+        $post = $model->find($id);
+        if (empty($post)) {
+            $this->error('回复不存在');
+        }
+        if ($post['userId'] != $this->user['userId']) {
+            $this->error('你无权删除');
+        }
+
+        print_r($post);exit;
         $result = $model->delete($id);
         if ($result === false) {
             $this->error('删除失败');

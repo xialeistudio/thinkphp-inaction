@@ -16,7 +16,7 @@ class ReplyViewModel extends ViewModel
 {
     public $viewFields = array(
         'Reply' => array('replyId', 'createdAt' => 'replyAt', 'content'),
-        'Post' => array('postId', 'title'),
+        'Post' => array('postId', 'title', '_on' => 'Post.postId=Reply.postId'),
         'User' => array('userId', 'avatar', 'nickname', 'score', 'postCount', '_on' => 'User.userId=Reply.userId'),
     );
 
