@@ -9,6 +9,7 @@
 namespace Admin\Controller;
 
 use Common\Model\PostModel;
+use Common\Model\ReplyModel;
 use Common\Model\ReplyViewModel;
 
 /**
@@ -31,6 +32,23 @@ class ReplyController extends BaseController
         $this->assign('page', $page);
         $this->assign('postCount', $postCount);
         $this->display();
+    }
 
+    public function delete()
+    {
+
+        $id = I('id');
+        $model = new ReplyModel();
+        $post = $model->find($id);
+        if (empty($post)) {
+            $this->error('回复不存在');
+        }
+
+        $result = $model->delete($id);
+        if ($result === false) {
+            $this->error('删除失败');
+        } else {
+            $this->success('删除成功');
+        }
     }
 }

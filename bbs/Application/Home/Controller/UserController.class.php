@@ -155,6 +155,7 @@ class UserController extends CommonController
             if (empty($callback)) {
                 $callback = U('posts');
             }
+            session('threadUpdateCallback', null);
             $this->success('编辑成功', $callback);
         } catch (Exception $e) {
             $this->error($e->getMessage());
