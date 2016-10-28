@@ -6,12 +6,6 @@
     <div class="am-panel am-panel-default">
         <div class="am-panel-bd">
             <div>帖子总数：{$postCount}</div>
-            <div>
-                版主：
-                <volist name="admins" id="admin">
-                    <a href="{:U('user/view?id='.$admin['userId'])}">{$admin.nickname}</a>
-                </volist>
-            </div>
         </div>
     </div>
     <p><a href="{:U('thread/post?bid='.$board['boardId'])}" class="am-btn am-btn-primary">发帖</a></p>

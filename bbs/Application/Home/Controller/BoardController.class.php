@@ -22,10 +22,8 @@ class BoardController extends CommonController
             $model = new BoardModel();
             $modelPost = new PostViewModel();
             $board = $model->view($id, 1);
-            $admins = $model->getAdmins($id);
             list($postList, $page, $postCount) = $modelPost->getList(0, $id);
             $this->assign('board', $board);
-            $this->assign('admins', $admins);
             $this->assign('postList', $postList);
             $this->assign('page', $page);
             $this->assign('postCount', $postCount);

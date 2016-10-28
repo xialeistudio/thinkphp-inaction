@@ -1,6 +1,6 @@
 <div class="site-threads am-container">
     <notempty name="board">
-        <p>当前显示【{$board.name}】的梯子 <a href="{:U('post/index')}">显示全部</a></p>
+        <p>当前显示【{$board.name}】的帖子 <a href="{:U('post/index')}">显示全部</a></p>
     </notempty>
     <table class="am-table am-table-bordered am-table-centered">
         <tr>
@@ -25,12 +25,14 @@
                     <a href="{$item.userAvatar}" target="_blank">
                         <img src="{$item.userAvatar}" width="24" height="24" alt="">
                     </a>
+                    {$item.userNickname}
                 </td>
                 <td>
-                    <a href="{:U('post/edit?id='.$item['postId'])}">编辑</a>
-                    <a href="{:U('post/delete?id='.$item['postId'])}" onclick="return confirm('确定删除吗？')">删除</a>
+                    <a href="{:U('edit?id='.$item['postId'])}">编辑</a>
+                    <a href="{:U('delete?id='.$item['postId'])}" onclick="return confirm('确定删除吗？')">删除</a>
                 </td>
             </tr>
         </volist>
     </table>
+    {$page}
 </div>

@@ -1,0 +1,33 @@
+<div class="site-threads am-container">
+    <notempty name="post">
+        <p>当前显示【{$post.title}】的回复 <a href="{:U('reply/index')}">显示全部</a></p>
+    </notempty>
+    <table class="am-table am-table-bordered am-table-centered">
+        <tr>
+            <th>帖子</th>
+            <th>时间</th>
+            <th>用户</th>
+            <th>内容</th>
+            <th>操作</th>
+        </tr>
+        <volist name="list" id="item">
+            <tr>
+                <td>
+                    <a href="{:U('/thread/view?id='.$item['postId'])}" target="_blank">{$item.title}</a>
+                </td>
+                <td>{$item.replyAt}</td>
+                <td>
+                    <a href="{$item.avatar}" target="_blank">
+                        <img src="{$item.avatar}" width="24" height="24" alt="">
+                    </a>
+                    {$item.nickname}
+                </td>
+                <td>{$item.content}</td>
+                <td>
+                    <a href="{:U('delete?id='.$item['replyId'])}" onclick="return confirm('确定删除吗？')">删除</a>
+                </td>
+            </tr>
+        </volist>
+    </table>
+    {$page}
+</div>
