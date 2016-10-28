@@ -34,6 +34,13 @@
                 </eq>
                 <div class="content">{$thread.content|nl2br}</div>
             </div>
+            <div class="action">
+                <eq name="Think.session.user.userId" value="$thread.userId">
+                    <a href="{:U('user/postEdit?id='.$thread['postId'])}?callback={:urlencode('__SELF__')}">编辑</a>
+                    <a href="{:U('user/postDelete?id='.$thread['postId'])}?callback={:U('/')}"
+                       onclick="return confirm('确定删除吗？')">删除</a>
+                </eq>
+            </div>
         </div>
     </div>
     <volist name="replies" id="thread">
@@ -56,6 +63,12 @@
                 <div class="post-at">发表于{$thread.replyAt}</div>
                 <div class="body">
                     <div class="content">{$thread.content|nl2br}</div>
+                </div>
+                <div class="action">
+                    <eq name="Think.session.user.userId" value="$thread.userId">
+                        <a href="{:U('user/replyDelete?id='.$thread['replyId'])}?callback={:urlencode('__SELF__')}"
+                           onclick="return confirm('确定删除吗？')">删除</a>
+                    </eq>
                 </div>
             </div>
         </div>

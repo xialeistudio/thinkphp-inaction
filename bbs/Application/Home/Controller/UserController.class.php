@@ -125,6 +125,10 @@ class UserController extends CommonController
         if ($post['userId'] != $this->user['userId']) {
             $this->error('你无权编辑');
         }
+        $callback = I('callback');
+        if (!empty($callback)) {
+            session('threadUpdateCallback', $callback);
+        }
         $this->assign('post', $post);
         $this->display();
     }
@@ -147,7 +151,11 @@ class UserController extends CommonController
             if ($model->where(array('postId' => $id))->save($data) === false) {
                 throw new Exception('编辑失败');
             }
-            $this->success('编辑成功', U('posts'));
+            $callback = session('threadUpdateCallback');
+            if (empty($callback)) {
+                $callback = U('posts');
+            }
+            $this->success('编辑成功', $callback);
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }
@@ -173,7 +181,11 @@ class UserController extends CommonController
         if ($result === false) {
             $this->error('删除失败');
         } else {
-            $this->success('删除成功');
+            $callback = I('callback');
+            if (empty($callback)) {
+                $callback = U('posts');
+            }
+            $this->success('删除成功', $callback);
         }
     }
 
@@ -184,7 +196,7 @@ class UserController extends CommonController
     {
         $this->checkLogin();
         $model = new ReplyViewModel();
-        list($list, $page, $count) = $model->getList(0,$this->user['userId']);
+        list($list, $page, $count) = $model->getList(0, $this->user['userId']);
         $this->assign('list', $list);
         $this->assign('page', $page);
         $this->assign('count', $count);
@@ -206,13 +218,15 @@ class UserController extends CommonController
         if ($post['userId'] != $this->user['userId']) {
             $this->error('你无权删除');
         }
-
-        print_r($post);exit;
         $result = $model->delete($id);
         if ($result === false) {
             $this->error('删除失败');
         } else {
-            $this->success('删除成功');
+            $callback = I('callback');
+            if (empty($callback)) {
+                $callback = U('replies');
+            }
+            $this->success('删除成功', $callback);
         }
     }
 }

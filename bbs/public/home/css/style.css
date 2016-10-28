@@ -190,3 +190,7 @@ body {
 .site-thread .thread .content-box .body .content {
   padding: 8px 0;
 }
+.site-thread .thread .content-box .action {
+  border-top: 1px dashed #f1f1f1;
+  padding: 8px 0;
+}
