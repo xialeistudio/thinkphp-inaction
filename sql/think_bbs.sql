@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50619
+Source Server Version : 100108
 Source Host           : localhost:3306
 Source Database       : think_bbs
 
 Target Server Type    : MYSQL
-Target Server Version : 50619
+Target Server Version : 100108
 File Encoding         : 65001
 
-Date: 2016-09-10 15:59:30
+Date: 2016-10-28 17:41:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,11 +27,12 @@ CREATE TABLE `bbs_admin` (
   `loginIp` int(11) NOT NULL DEFAULT '0' COMMENT '上次登录IP',
   PRIMARY KEY (`adminId`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of bbs_admin
 -- ----------------------------
+INSERT INTO `bbs_admin` VALUES ('1', 'xialeistudio', '99098ad83b7cbf38d611a6f44438d374', '2016-10-28 17:03:55', '0');
 
 -- ----------------------------
 -- Table structure for bbs_board
@@ -40,35 +41,16 @@ DROP TABLE IF EXISTS `bbs_board`;
 CREATE TABLE `bbs_board` (
   `boardId` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '版块ID',
   `name` varchar(10) NOT NULL COMMENT '版块名称',
-  `icon` varchar(40) NOT NULL COMMENT '版块图标',
+  `icon` varchar(200) NOT NULL COMMENT '版块图标',
   `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态',
   `rules` text NOT NULL COMMENT '版规',
   PRIMARY KEY (`boardId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of bbs_board
 -- ----------------------------
-
--- ----------------------------
--- Table structure for bbs_board_admin
--- ----------------------------
-DROP TABLE IF EXISTS `bbs_board_admin`;
-CREATE TABLE `bbs_board_admin` (
-  `adminId` int(11) NOT NULL AUTO_INCREMENT COMMENT '版主ID',
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '设置时间',
-  `userId` int(10) unsigned NOT NULL,
-  `boardId` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`adminId`),
-  KEY `fk_bbs_board_admin_bbs_user1_idx` (`userId`),
-  KEY `fk_bbs_board_admin_bbs_board1_idx` (`boardId`),
-  CONSTRAINT `fk_bbs_board_admin_bbs_board1` FOREIGN KEY (`boardId`) REFERENCES `bbs_board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_bbs_board_admin_bbs_user1` FOREIGN KEY (`userId`) REFERENCES `bbs_user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of bbs_board_admin
--- ----------------------------
+INSERT INTO `bbs_board` VALUES ('1', '灌水区', 'http://localhost/thinkphp-inaction/bbs/upload/2016-10-19/58072b8db2699.jpg', '1', '请遵守板块规则');
 
 -- ----------------------------
 -- Table structure for bbs_post
@@ -81,7 +63,6 @@ CREATE TABLE `bbs_post` (
   `replyCount` int(11) NOT NULL DEFAULT '0' COMMENT '回复数量',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '发帖时间',
   `updatedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `locked` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否锁定',
   `content` text NOT NULL COMMENT '帖子内容',
   `boardId` int(10) unsigned NOT NULL,
   `userId` int(10) unsigned NOT NULL,
@@ -90,13 +71,14 @@ CREATE TABLE `bbs_post` (
   KEY `hitCount` (`viewCount`),
   KEY `fk_bbs_post_bbs_board_idx` (`boardId`),
   KEY `fk_bbs_post_bbs_user1_idx` (`userId`),
-  CONSTRAINT `fk_bbs_post_bbs_user1` FOREIGN KEY (`userId`) REFERENCES `bbs_user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_bbs_post_bbs_board` FOREIGN KEY (`boardId`) REFERENCES `bbs_board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `fk_bbs_post_bbs_board` FOREIGN KEY (`boardId`) REFERENCES `bbs_board` (`boardId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_bbs_post_bbs_user1` FOREIGN KEY (`userId`) REFERENCES `bbs_user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of bbs_post
 -- ----------------------------
+INSERT INTO `bbs_post` VALUES ('1', '测试帖子', '9', '6', '2016-10-28 17:39:39', '2016-10-28 17:39:39', '测试帖子123222', '1', '1');
 
 -- ----------------------------
 -- Table structure for bbs_reply
@@ -111,13 +93,19 @@ CREATE TABLE `bbs_reply` (
   PRIMARY KEY (`replyId`),
   KEY `fk_bbs_reply_bbs_post1_idx` (`postId`),
   KEY `fk_bbs_reply_bbs_user1_idx` (`userId`),
-  CONSTRAINT `fk_bbs_reply_bbs_user1` FOREIGN KEY (`userId`) REFERENCES `bbs_user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_bbs_reply_bbs_post1` FOREIGN KEY (`postId`) REFERENCES `bbs_post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `fk_bbs_reply_bbs_post1` FOREIGN KEY (`postId`) REFERENCES `bbs_post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_bbs_reply_bbs_user1` FOREIGN KEY (`userId`) REFERENCES `bbs_user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of bbs_reply
 -- ----------------------------
+INSERT INTO `bbs_reply` VALUES ('4', '2016-10-28 16:29:23', '231', '1', '1');
+INSERT INTO `bbs_reply` VALUES ('5', '2016-10-28 16:30:46', '12', '1', '1');
+INSERT INTO `bbs_reply` VALUES ('6', '2016-10-28 16:30:48', '1', '1', '1');
+INSERT INTO `bbs_reply` VALUES ('7', '2016-10-28 16:30:50', '1', '1', '1');
+INSERT INTO `bbs_reply` VALUES ('8', '2016-10-28 16:30:54', '222', '1', '1');
+INSERT INTO `bbs_reply` VALUES ('9', '2016-10-28 16:30:58', '2132', '1', '1');
 
 -- ----------------------------
 -- Table structure for bbs_user
@@ -138,24 +126,28 @@ CREATE TABLE `bbs_user` (
   UNIQUE KEY `nickname_UNIQUE` (`nickname`),
   KEY `score` (`score`),
   KEY `postCount` (`postCount`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of bbs_user
 -- ----------------------------
+INSERT INTO `bbs_user` VALUES ('1', 'xialeistudio', '99098ad83b7cbf38d611a6f44438d374', '夏磊', 'http://localhost/thinkphp-inaction/bbs/upload/2016-10-22/580ae49f2d54e.jpg', '2016-10-28 17:36:03', '2130706433', '0', '1');
 DROP TRIGGER IF EXISTS `onPostInsert`;
 DELIMITER ;;
 CREATE TRIGGER `onPostInsert` AFTER INSERT ON `bbs_post` FOR EACH ROW UPDATE `bbs_user` SET postCount=postCount+1 WHERE userId=new.userId
+;
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `onPostDelete`;
 DELIMITER ;;
 CREATE TRIGGER `onPostDelete` AFTER DELETE ON `bbs_post` FOR EACH ROW UPDATE `bbs_user` SET postCount=postCount-1 WHERE userId=old.userId
+;
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `onReplyInsert`;
 DELIMITER ;;
 CREATE TRIGGER `onReplyInsert` AFTER INSERT ON `bbs_reply` FOR EACH ROW UPDATE `bbs_post` SET replyCount=replyCount+1 WHERE postId = new.postId
+;
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `onReplyDelete`;
@@ -163,3 +155,4 @@ DELIMITER ;;
 CREATE TRIGGER `onReplyDelete` AFTER DELETE ON `bbs_reply` FOR EACH ROW UPDATE `bbs_post` SET replyCount=replyCount-1 WHERE postId = old.postId
 ;;
 DELIMITER ;
+SET FOREIGN_KEY_CHECKS=1;
