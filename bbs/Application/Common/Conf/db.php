@@ -7,7 +7,7 @@
  */
 return array(
 	'DB_TYPE' => 'mysql',
-	'DB_DSN' => 'mysql:host=localhost;dbname=think_bbs;charset=utf8mb4',
+	'DB_DSN' => 'mysql:host=localhost;dbname=bbs;charset=utf8mb4',
 	'DB_uSER' => 'root',
 	'DB_PWD' => 'root',
 	'DB_PREFIX' => 'bbs_',

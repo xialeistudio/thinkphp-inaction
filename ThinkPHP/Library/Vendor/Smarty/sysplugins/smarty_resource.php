@@ -481,7 +481,7 @@ abstract class Smarty_Resource {
         $resource = Smarty_Resource::load($smarty, $type);
         $unique_resource_name = $resource->buildUniqueResourceName($smarty, $name);
 
-        // check runtime cache
+        // check Runtime cache
         $_cache_key = 'template|' . $unique_resource_name;
         if (isset(self::$sources[$_cache_key])) {
             return self::$sources[$_cache_key];
@@ -491,7 +491,7 @@ abstract class Smarty_Resource {
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $type, $name, $unique_resource_name);
         $resource->populate($source, $_template);
 
-        // runtime cache
+        // Runtime cache
         self::$sources[$_cache_key] = $source;
         return $source;
     }
@@ -520,7 +520,7 @@ abstract class Smarty_Resource {
         $resource = Smarty_Resource::load($smarty, $type);
         $unique_resource_name = $resource->buildUniqueResourceName($smarty, $name);
         
-        // check runtime cache
+        // check Runtime cache
         $_cache_key = 'config|' . $unique_resource_name;
         if (isset(self::$sources[$_cache_key])) {
             return self::$sources[$_cache_key];
@@ -530,7 +530,7 @@ abstract class Smarty_Resource {
         $source = new Smarty_Config_Source($resource, $smarty, $config_resource, $type, $name, $unique_resource_name);
         $resource->populate($source, null);
         
-        // runtime cache
+        // Runtime cache
         self::$sources[$_cache_key] = $source;
         return $source;
     }
@@ -672,7 +672,7 @@ class Smarty_Template_Source {
      */
     public function getCompiled(Smarty_Internal_Template $_template)
     {
-        // check runtime cache
+        // check Runtime cache
         $_cache_key = $this->unique_resource . '#' . $_template->compile_id;
         if (isset(Smarty_Resource::$compileds[$_cache_key])) {
             return Smarty_Resource::$compileds[$_cache_key];
@@ -683,7 +683,7 @@ class Smarty_Template_Source {
         $compiled->timestamp = @filemtime($compiled->filepath);
         $compiled->exists = !!$compiled->timestamp;
 
-        // runtime cache
+        // Runtime cache
         Smarty_Resource::$compileds[$_cache_key] = $compiled;
 
         return $compiled;

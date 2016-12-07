@@ -94,7 +94,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
      */
     public $allow_relative_path = false;
     /**
-     * internal capture runtime stack
+     * internal capture Runtime stack
      * @var array
      */
     public $_capture_stack = array();
@@ -231,7 +231,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     }
 
     /**
-     * Template code runtime function to get subtemplate content
+     * Template code Runtime function to get subtemplate content
      *
      * @param string  $template       the resource handle of the template file
      * @param mixed   $cache_id       cache id to be used with this template
@@ -286,7 +286,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     }
 
     /**
-     * Template code runtime function to set up an inline subtemplate
+     * Template code Runtime function to set up an inline subtemplate
      *
      * @param string  $template       the resource handle of the template file
      * @param mixed   $cache_id       cache id to be used with this template
@@ -471,7 +471,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     }
 
     /**
-     * Template code runtime function to create a local Smarty variable for array assignments
+     * Template code Runtime function to create a local Smarty variable for array assignments
      *
      * @param string $tpl_var   tempate variable name
      * @param bool   $nocache   cache mode of variable
@@ -493,7 +493,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     }
 
     /**
-     * Template code runtime function to get pointer to template variable array of requested scope
+     * Template code Runtime function to get pointer to template variable array of requested scope
      *
      * @param int $scope    requested variable scope
      * @return array        array of template variables
@@ -566,7 +566,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     }
 
     /**
-     * runtime error not matching capture tags
+     * Runtime error not matching capture tags
      *
      */
     public function capture_error()

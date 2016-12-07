@@ -17,7 +17,7 @@ class PostViewModel extends ViewModel
 {
     public $pk = 'postId';
     public $viewFields = array(
-        'Post' => array('postId', 'title', 'viewCount', 'replyCount', 'createdAt', 'updatedAt', 'locked', 'content', 'boardId', 'userId'),
+        'Post' => array('postId', 'title', 'viewCount', 'replyCount', 'createdAt', 'updatedAt', 'content', 'boardId', 'userId'),
         'User' => array('nickname' => 'userNickname', 'avatar' => 'userAvatar', 'createdAt' => 'userCreatedAt', 'createdIp' => 'userCreatedIp', 'score' => 'userScore', 'postCount' => 'userPostCount', '_on' => 'Post.userId=User.userId'),
         'Board' => array('name' => 'boardName', 'icon' => 'boardIcon', '_on' => 'Post.boardId=Board.boardId')
     );
