@@ -48,6 +48,7 @@ class IndexController extends Controller
         if ($data['Content'] == '0') {
             session('step', null);
             session('login', null);
+            session_destroy();
             return array('重置成功', 'text');
         }
         //未登录，且未选择操作
