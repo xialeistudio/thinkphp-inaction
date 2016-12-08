@@ -78,6 +78,7 @@ class IndexController extends Controller
                     'text');
             }
             if ($data['Content'] == '2') {
+                session('step', self::AVATAR_STEP_UPLOAD);
                 return array('【头像】请发送头像图片', 'text');
             }
             //退出登录
