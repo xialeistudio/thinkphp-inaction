@@ -5,5 +5,6 @@ return array(
         'APPID' => '',
         'SECRET' => '',
         'TOKEN' => 'IQ2FIeKwq1ZJEI3CLHQ8'
-    )
+    ),
+    'SESSION_AUTO_START' => false
 );
