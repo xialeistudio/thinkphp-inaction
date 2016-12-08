@@ -44,6 +44,12 @@ class IndexController extends Controller
     private function _handleText(array $data)
     {
         $step = session('step');
+        //全局操作
+        if ($data['Content'] == '0') {
+            session('step', null);
+            session('login', null);
+            return array('重置成功', 'text');
+        }
         //未登录，且未选择操作
         if (empty($step) && !session('login')) {
             //未选择操作
