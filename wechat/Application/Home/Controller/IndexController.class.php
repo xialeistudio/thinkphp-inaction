@@ -74,11 +74,13 @@ class IndexController extends Controller
         //用户注册输入用户名
         if ($step == self::REGISTER_STEP_USERNAME) {
             session('username', $data['Content']);
+            session('step', self::REGISTER_STEP_PASSWORD);
             return array('请输入您的密码', 'text');
         }
         //用户注册输入密码
         if ($step == self::REGISTER_STEP_PASSWORD) {
             session('password', $data['Content']);
+            session('step', null);
             return array('注册成功', 'text');
         }
         //用户登录输入账号
@@ -95,6 +97,7 @@ class IndexController extends Controller
                 return array('密码错误', 'text');
             }
             session('login', 1);
+            session('step', null);
             return array(join("\n", array(
                 '登录成功！您可以进行以下操作',
                 '1.个人信息',
