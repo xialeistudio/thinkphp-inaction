@@ -100,7 +100,7 @@ class IndexController extends Controller
      */
     private function _resetSession()
     {
-        session('[destroy]');
+        session_destroy();
     }
 
 
@@ -143,7 +143,7 @@ class IndexController extends Controller
     {
         if ($data['Content'] == self::GLOBAL_ACTION_RESET) {
             $this->_resetSession();
-            return array(join("\n", $this->_guestActions()), 'text');
+            return array(join("\n", array_merge(array('重置成功'), $this->_guestActions())), 'text');
         }
 
         return false;
