@@ -1,6 +1,7 @@
 <?php
 namespace Home\Controller;
 
+use Requests;
 use Think\Controller;
 
 class IndexController extends Controller
@@ -21,6 +22,11 @@ class IndexController extends Controller
     const USER_ACTION_LOGOUT = 3;
     //全局操作
     const GLOBAL_ACTION_RESET = 999;
+    //自定义菜单
+    const MENU_MAIN_1 = 'MENU_MAIN_1';
+    const MENU_MAIN_2 = 'MENU_MAIN_2';
+    const MENU_MAIN_1_CHILD_1 = 'MENU_MAIN_1_CHILD_1';
+    const MENU_MAIN_2_CHILD_1 = 'MENU_MAIN_2_CHILD_1';
 
     /**
      * 外部接口
@@ -114,7 +120,7 @@ class IndexController extends Controller
             '您可以进行以下操作：',
             '1.注册账号',
             '2.登录账号',
-            '帮助:任何情况下回复0重置会话状态'
+            '帮助:任何情况下回复999重置会话状态'
         );
     }
 
@@ -130,7 +136,7 @@ class IndexController extends Controller
             '1.个人信息',
             '2.上传头像',
             '3.退出登录',
-            '帮助:任何情况下回复0重置会话状态'
+            '帮助:任何情况下回复999重置会话状态'
         );
     }
 
@@ -199,7 +205,7 @@ class IndexController extends Controller
                         join("\n", array(
                             "【登录】用户名错误",
                             "回复用户名继续操作",
-                            "回复0重新开始会话"
+                            "回复999重新开始会话"
                         )),
                         'text'
                     );
@@ -214,7 +220,7 @@ class IndexController extends Controller
                         join("\n", array(
                             "【登录】密码错误",
                             "回复密码继续操作",
-                            "回复0重新开始会话"
+                            "回复999重新开始会话"
                         )),
                         'text'
                     );
@@ -281,12 +287,95 @@ class IndexController extends Controller
         return array(join("\n", array_merge(array('【头像】上传成功'), $this->_userActions())), 'text');
     }
 
+    /**
+     * 处理事件
+     * @param array $data
+     * @return array
+     */
     private function _handleEvent(array $data)
     {
         if ($data['Event'] == 'subscribe') {
             return array(join("\n", array_merge(array('欢迎关注！'), $this->_guestActions())), 'text');
         }
-        return array('操作有误', 'text');
+        if ($data['Event'] == 'CLICK') {
+            return $this->_handleMenuClick($data['EventKey']);
+        }
+        return array('', 'text');
+    }
+
+    /**
+     * 处理自定义菜单点击
+     * @param $key
+     * @return array
+     */
+    private function _handleMenuClick($key)
+    {
+        switch ($key) {
+            case self::MENU_MAIN_1:
+                return array('您点击了主菜单1', 'text');
+            case self::MENU_MAIN_1_CHILD_1:
+                return array('您点击了 主菜单1->子菜单1', 'text');
+            case self::MENU_MAIN_2:
+                return array('您点击了主菜单2', 'text');
+            case self::MENU_MAIN_2_CHILD_1:
+                return array('您点击了 主菜单2->子菜单1', 'text');
+            default:
+                return array('', 'text');
+        }
+    }
+
+    /**
+     * 创建自定义菜单
+     */
+    public function menu()
+    {
+        require __DIR__ . '/../../../../vendor/autoload.php';
+        $data = array(
+            'button' => array(
+                array(
+                    'type' => 'click',
+                    'name' => '主菜单1',
+                    'key' => self::MENU_MAIN_1,
+                    'sub_button' => array(
+                        array(
+                            'type' => 'click',
+                            'name' => '子菜单1',
+                            'key' => self::MENU_MAIN_1_CHILD_1
+                        ),
+                        array(
+                            'type' => 'view',
+                            'name' => '百度一下',
+                            'url' => 'https://www.baidu.com'
+                        )
+                    )
+                ),
+                array(
+                    'type' => 'click',
+                    'name' => '主菜单2',
+                    'key' => self::MENU_MAIN_2,
+                    'sub_button' => array(
+                        array(
+                            'type' => 'click',
+                            'name' => '子菜单1',
+                            'key' => self::MENU_MAIN_2_CHILD_1
+                        ),
+                        array(
+                            'type' => 'view',
+                            'name' => 'QQ',
+                            'url' => 'http://www.qq.com'
+                        )
+                    )
+                )
+            )
+        );
+
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->_getAccessToken();
+
+        $resp = Requests::post($url, array(), json_encode($data, JSON_UNESCAPED_UNICODE));
+        if ($resp->status_code != 200) {
+            return null;
+        }
+        echo $resp->body;
     }
 
     /**
@@ -299,7 +388,7 @@ class IndexController extends Controller
         if (!empty($data)) {
             return $data;
         }
-        require __DIR__ . '/../../../../Vendor/Requests.php';
+        require __DIR__ . '/../../../../vendor/autoload.php';
         $url = 'https://api.weixin.qq.com/cgi-bin/token?';
         $params = array(
             'grant_type' => 'client_credential',
@@ -307,12 +396,14 @@ class IndexController extends Controller
             'secret' => C('WECHAT.SECRET')
         );
 
-        $resp = \Requests::get($url . http_build_query($params));
+        $resp = Requests::get($url . http_build_query($params));
         if ($resp->status_code != 200) {
             return null;
         }
         $data = json_decode($resp->body, true);
-
+        if (isset($data['errcode']) && $data['errcode'] != 0) {
+            throw new \Error($data['errmsg'], $data['errcode']);
+        }
         S($cacheKey, $data['access_token'], 7000);
         return $data['access_token'];
     }
