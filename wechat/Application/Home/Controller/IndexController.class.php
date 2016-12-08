@@ -250,7 +250,7 @@ class IndexController extends Controller
                     return array(join("\n", array_merge(array('退出登录成功'), $this->_guestActions())), 'text');
                 }
             }
-            if ($this->_currentStep() == self::USER_ACTION_AVATAR) {
+            if ($this->_currentStep() == self::STEP_AVATAR_UPLOAD) {
                 return array(
                     '【头像】操作有误!请上传图片头像',
                     'text'
