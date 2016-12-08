@@ -23,8 +23,7 @@ class IndexController extends Controller
     //全局操作
     const GLOBAL_ACTION_RESET = 999;
     //自定义菜单
-    const MENU_MAIN_1 = 'MENU_MAIN_1';
-    const MENU_MAIN_2 = 'MENU_MAIN_2';
+    const MENU_MAIN_3 = 'MENU_MAIN_3';
     const MENU_MAIN_1_CHILD_1 = 'MENU_MAIN_1_CHILD_1';
     const MENU_MAIN_2_CHILD_1 = 'MENU_MAIN_2_CHILD_1';
 
@@ -311,12 +310,10 @@ class IndexController extends Controller
     private function _handleMenuClick($key)
     {
         switch ($key) {
-            case self::MENU_MAIN_1:
-                return array('您点击了主菜单1', 'text');
+            case self::MENU_MAIN_3:
+                return array('您点击了主菜单3', 'text');
             case self::MENU_MAIN_1_CHILD_1:
                 return array('您点击了 主菜单1->子菜单1', 'text');
-            case self::MENU_MAIN_2:
-                return array('您点击了主菜单2', 'text');
             case self::MENU_MAIN_2_CHILD_1:
                 return array('您点击了 主菜单2->子菜单1', 'text');
             default:
@@ -335,7 +332,6 @@ class IndexController extends Controller
                 array(
                     'type' => 'click',
                     'name' => '主菜单1',
-                    'key' => self::MENU_MAIN_1,
                     'sub_button' => array(
                         array(
                             'type' => 'click',
@@ -352,7 +348,6 @@ class IndexController extends Controller
                 array(
                     'type' => 'click',
                     'name' => '主菜单2',
-                    'key' => self::MENU_MAIN_2,
                     'sub_button' => array(
                         array(
                             'type' => 'click',
@@ -365,6 +360,11 @@ class IndexController extends Controller
                             'url' => 'http://www.qq.com'
                         )
                     )
+                ),
+                array(
+                    'type' => 'click',
+                    'name' => '主菜单3',
+                    'key'
                 )
             )
         );
