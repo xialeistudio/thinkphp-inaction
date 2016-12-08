@@ -245,7 +245,7 @@ class IndexController extends Controller
                     );
                 }
                 if ($data['Content'] == self::USER_ACTION_LOGOUT) {
-                    $this->_login();
+                    $this->_logout();
                     $this->_resetStep();
                     return array(join("\n", array_merge(array('退出登录成功'), $this->_guestActions())), 'text');
                 }
