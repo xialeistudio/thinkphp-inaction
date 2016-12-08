@@ -37,7 +37,7 @@ class IndexController extends Controller
     private function _handle(array $data)
     {
         session_id($data['FromUserName']);
-        session('[start]');
+        session_start();
         if ($data['MsgType'] == 'text') {
             return $this->_handleText($data);
         }
