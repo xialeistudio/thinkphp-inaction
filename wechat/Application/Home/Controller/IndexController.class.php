@@ -173,7 +173,7 @@ class IndexController extends Controller
                     );
                 }
                 if ($data['Content'] == self::GUEST_ACTION_LOGIN) {
-                    $this->_setStep(self::STEP_REGISTER_USERNAME);
+                    $this->_setStep(self::STEP_LOGIN_USERNAME);
                     return array(
                         '【登录】请输入您的用户名',
                         'text'
