@@ -11,6 +11,8 @@ class IndexController extends Controller
     const LOGIN_STEP_USERNAME = 3;
     const LOGIN_STEP_PASSWORD = 4;
 
+    const AVATAR_STEP_UPLOAD = 5;
+
     public function index()
     {
         import('Home.Library.ThinkWechat');
@@ -51,71 +53,76 @@ class IndexController extends Controller
             session_destroy();
             return array('重置成功', 'text');
         }
-        //未登录，且未选择操作
+        //未登录
         if (empty($step) && !session('login')) {
-            //未选择操作
             if ($data['Content'] == '1') {
                 session('step', self::REGISTER_STEP_USERNAME);
-                return array('请输入您的账号', 'text');
+                return array("【注册】请输入您的账号", 'text');
             }
             if ($data['Content'] == '2') {
                 session('step', self::LOGIN_STEP_USERNAME);
-                return array('请输入您的账号', 'text');
+                return array('【登录】请输入您的账号', 'text');
             }
         }
         //已登录
         if (session('login')) {
             //查看个人信息
             if ($data['Content'] == '1') {
+                $avatar = session('avatar');
                 return array(
                     join("\n", array(
                         '您的账号:' . session('username'),
-                        '您的密码:' . session('password')
+                        '您的密码:' . session('password'),
+                        '您的头像:' . $avatar ? $avatar : '未设置'
                     )),
                     'text');
             }
-            //退出登录
             if ($data['Content'] == '2') {
+                return array('【头像】请发送头像图片', 'text');
+            }
+            //退出登录
+            if ($data['Content'] == '3') {
                 session('login', null);
-                return array('您已成功退出登录', 'text');
+                return array('【注销】您已成功退出登录', 'text');
             }
         }
         //用户注册输入用户名
         if ($step == self::REGISTER_STEP_USERNAME) {
             session('username', $data['Content']);
             session('step', self::REGISTER_STEP_PASSWORD);
-            return array('请输入您的密码', 'text');
+            return array('【注册】请输入您的密码', 'text');
         }
         //用户注册输入密码
         if ($step == self::REGISTER_STEP_PASSWORD) {
             session('password', $data['Content']);
             session('step', null);
-            return array('注册成功', 'text');
+            return array('【注册】注册成功', 'text');
         }
         //用户登录输入账号
         if ($step == self::LOGIN_STEP_USERNAME) {
             if (session('username') != $data['Content']) {
-                return array('账号不匹配', 'text');
+                return array('【登录】账号不匹配', 'text');
             }
             session('step', self::LOGIN_STEP_PASSWORD);
-            return array('请输入密码', 'text');
+            return array('【登录】请输入密码', 'text');
         }
         //用户登录输入密码
         if ($step == self::LOGIN_STEP_PASSWORD) {
             if (session('password') != $data['Content']) {
-                return array('密码错误', 'text');
+                return array('【登录】密码错误', 'text');
             }
             session('login', 1);
             session('step', null);
             return array(join("\n", array(
-                '登录成功！您可以进行以下操作',
+                '登录成功！您可以进行以下操作:',
                 '1.个人信息',
-                '2.退出登录'
+                '2.上传头像',
+                '3.退出登录'
             )), 'text');
         }
         return array(
             join("\n", array(
-                '不存在的操作!您可以进行以下操作',
+                '不存在的操作!您可以进行以下操作:',
                 '1.注册账号',
                 '2.登录账号'
             )),
@@ -123,9 +130,26 @@ class IndexController extends Controller
         );
     }
 
+    /**
+     * 上传头像处理
+     * @param array $data
+     * @return array
+     */
     private function _handleImage(array $data)
     {
-        return array("您上传的图片链接：${data['PicUrl']}", 'text');
+        if (session('login') && session('step') == self::AVATAR_STEP_UPLOAD) {
+            session('avatar', $data['PicUrl']);
+            session('step', null);
+            return array('【头像】设置成功', 'text');
+        }
+        return array(
+            join("\n", array(
+                '不存在的操作!您可以进行以下操作:',
+                '1.注册账号',
+                '2.登录账号'
+            )),
+            'text'
+        );
     }
 
     private function _handleEvent(array $data)
