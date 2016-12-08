@@ -67,10 +67,12 @@ class IndexController extends Controller
         if (session('login')) {
             //查看个人信息
             if ($data['Content'] == '1') {
-                return array(join("\n", array(
-                    '您的账号:' . session('username'),
-                    '您的密码:' . session('password')
-                )));
+                return array(
+                    join("\n", array(
+                        '您的账号:' . session('username'),
+                        '您的密码:' . session('password')
+                    )),
+                    'text');
             }
             //退出登录
             if ($data['Content'] == '2') {
