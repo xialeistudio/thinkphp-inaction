@@ -276,8 +276,8 @@ class IndexController extends Controller
             }
             return array(join("\n", $messages), 'text');
         }
-
         session('avatar', $data['PicUrl']);
+        $this->_resetStep();
         return array(join("\n", array_merge(array('【头像】上传成功'), $this->_userActions())), 'text');
     }
 
