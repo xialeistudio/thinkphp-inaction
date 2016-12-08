@@ -142,6 +142,7 @@ class IndexController extends Controller
     private function _handleGlobalAction(array $data)
     {
         if ($data['Content'] == self::GLOBAL_ACTION_RESET) {
+            return array($data['Content'], 'text');
             $this->_resetSession();
             return array(join("\n", array_merge(array('重置成功'), $this->_guestActions())), 'text');
         }
