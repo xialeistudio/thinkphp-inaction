@@ -20,7 +20,7 @@ class IndexController extends Controller
     const USER_ACTION_AVATAR = 2;
     const USER_ACTION_LOGOUT = 3;
     //全局操作
-    const GLOBAL_ACTION_RESET = 0;
+    const GLOBAL_ACTION_RESET = 999;
 
     /**
      * 外部接口
@@ -142,7 +142,6 @@ class IndexController extends Controller
     private function _handleGlobalAction(array $data)
     {
         if ($data['Content'] == self::GLOBAL_ACTION_RESET) {
-            return array($data['Content'], 'text');
             $this->_resetSession();
             return array(join("\n", array_merge(array('重置成功'), $this->_guestActions())), 'text');
         }
