@@ -364,7 +364,7 @@ class IndexController extends Controller
                 array(
                     'type' => 'click',
                     'name' => '主菜单3',
-                    'key'
+                    'key' => self::MENU_MAIN_3
                 )
             )
         );
@@ -402,7 +402,7 @@ class IndexController extends Controller
         }
         $data = json_decode($resp->body, true);
         if (isset($data['errcode']) && $data['errcode'] != 0) {
-            throw new \Error($data['errmsg'], $data['errcode']);
+            throw new \Exception($data['errmsg'], $data['errcode']);
         }
         S($cacheKey, $data['access_token'], 7000);
         return $data['access_token'];
