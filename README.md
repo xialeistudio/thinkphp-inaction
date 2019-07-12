@@ -10,7 +10,9 @@
 ## 读者交流群
 
 QQ群号：346660435
+
 微信群二维码：
-![微信群](https://static.ddhigh.com/paycode/20190712182221.jpg)
+
+<img src="https://static.ddhigh.com/paycode/20190712182221.jpg" width="150" height="150"/>
 
 一群开发爱好者欢迎您的到来~
