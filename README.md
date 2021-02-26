@@ -1,4 +1,5 @@
 # ThinkPHP实战
+本仓库代码版本号3.2，[5.0代码](https://github.com/thinkphp5-inaction) 
 《ThinkPHP实战》随书代码
 ## 本地部署教程
 1. 参考数据搭建本地`upupw`集成环境
